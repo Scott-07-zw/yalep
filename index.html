@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YALEP Educational Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --completed-color: #27ae60;
+      --text-color: #333333;
+      --background-color: #ffffff;
+      --card-bg: #f9f9f9;
+      --nav-bg: #ffffff;
+      --nav-text: #333333;
+      --nav-active: #3498db;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --completed-color: #2ecc71;
+      --text-color: #ffffff;
+      --background-color: #121212;
+      --card-bg: #1e1e1e;
+      --nav-bg: #121212;
+      --nav-text: #ffffff;
+      --nav-active: #2ecc71;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--nav-bg);
+      box-shadow: var(--shadow);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .navbar-brand {
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .navbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .slider.round {
+      border-radius: 24px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    .theme-switch i {
+      position: absolute;
+      right: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-color);
+      font-size: 14px;
+    }
+
+    .navbar-links {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--nav-text);
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-link.active {
+      color: var(--nav-active);
+      font-weight: 600;
+    }
+
+    .navbar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--nav-text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 70px;
+      padding: 2rem;
+      min-height: calc(100vh - 70px);
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .page.active-page {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Home Page */
+    .card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    .card-image {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-content p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="navbar-left" style="display: flex; align-items: center; gap: 1rem;">
+        <!-- <div class="navbar-brand">YALEP</div> -->
+        <img src="images/LOGO.jpg" alt="YALEP Logo" class="navbar-brand" style="height:40px;width:auto;object-fit:contain;">
+      </div>
+      <div class="navbar-controls">
+        <label class="theme-switch" aria-label="Toggle dark/light mode">
+          <input type="checkbox" id="theme-toggle">
+          <span class="slider round"></span>
+          <i class="fas fa-sun" id="sun-icon" style="left:-25px;right:auto;"></i>
+          <i class="fas fa-moon" id="moon-icon"></i>
+        </label>
+        <button class="navbar-toggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="course_outline.html" class="nav-link"><i class="fas fa-book"></i> Course</a></li>
+        <li><a href="info.html" class="nav-link"><i class="fas fa-info-circle"></i> Info</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Home Page -->
+      <div class="card">
+        <img src="images/yaz.jpg" alt="yalep Image" class="card-image">
+        <div class="card-content">
+          <p>Welcome to the Youth Advocacy Learning and Empowerment Platform (YALEP). Our mission is to provide quality education to youth across Zimbabwe.</p>
+          <p>Through this platform, you'll gain access to important lessons, assessments, and resources that will help you become an effective advocate for positive change in your community.</p>
+          <p>Start your learning journey today by exploring the lessons section, or learn more about our program in the info section.</p>
+          <button class="nav-button" style="margin-top:1.5rem;font-size:1.2rem;" onclick="markLessonCompleted(1, 'modules html/lesson 1.html')">Start Learning</button>
+        </div>
+      </div>
+      <div class="card">
+        <img src="Images/yaz 2.jpg" alt="Images/yaz 2.jpg" class="card-image">
+        <div class="card-content">
+          <p>YALEP is brought to you by Youth Advocates Zimbabwe, a non-profit organization dedicated to empowering young people through education and advocacy training.</p>
+          <p>Our programs are designed to be accessible, engaging, and impactful, helping you develop the skills and knowledge needed to make a difference.</p>
+          <p>For certification information or questions, please visit the info section or contact us directly.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
+    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navigation
+      const navbarToggle = document.querySelector('.navbar-toggle');
+      const navbarLinks = document.querySelector('.navbar-links');
+
+      // Toggle mobile menu
+      navbarToggle.addEventListener('click', function() {
+        navbarLinks.classList.toggle('active');
+      });
+
+      // Theme Switcher
+      const themeToggle = document.getElementById('theme-toggle');
+      const sunIcon = document.getElementById('sun-icon');
+      const moonIcon = document.getElementById('moon-icon');
+      const savedTheme = localStorage.getItem('theme');
+
+      function updateThemeIcons(theme) {
+        if (theme === 'dark') {
+          sunIcon.style.opacity = '0.5';
+          moonIcon.style.opacity = '1';
+        } else {
+          sunIcon.style.opacity = '1';
+          moonIcon.style.opacity = '0.5';
+        }
+      }
+
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+        updateThemeIcons(savedTheme);
+      } else {
+        updateThemeIcons('light');
+      }
+
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+          updateThemeIcons('dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+          updateThemeIcons('light');
+        }
+      });
+    });
+
+    function markLessonCompleted(lessonId, nextUrl) {
+      let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+      if (!completed.includes(lessonId)) {
+        completed.push(lessonId);
+        localStorage.setItem('completedLessons', JSON.stringify(completed));
+      }
+      window.location.href = nextUrl;
+    }
+  </script>
+</body>
+</html>

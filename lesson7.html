@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson 7</title>
+    <link rel="stylesheet" href="css/lessons.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .content-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+            position: relative;
+            padding-bottom: 80px;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        .nav-buttons {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 30px;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .nav-button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .nav-button:hover {
+            background-color: #2980b9;
+        }
+        .nav-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Lesson 7: Congratulations!</h1>
+        <p>You have reached the end of the lessons. Click Finish to complete your learning journey.</p>
+        <div class="nav-buttons">
+            <button class="nav-button" onclick="markLessonCompleted(7, 'course_outline.html')">Finish</button>
+        </div>
+    </div>
+    <div id="congrats-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
+        <div style="background:#fff;padding:2rem 2.5rem;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.2);max-width:90vw;text-align:center;">
+            <h2 style="color:#3498db;margin-bottom:1rem;">Congratulations!</h2>
+            <p style="font-size:1.1rem;margin-bottom:2rem;">You have completed the YALEP course!<br>You may now proceed to taking the post-test.</p>
+            <button id="close-modal-btn" style="background:#3498db;color:#fff;border:none;padding:0.7rem 2rem;border-radius:6px;font-size:1rem;cursor:pointer;">Proceed</button>
+        </div>
+    </div>
+    <script>
+    function markLessonCompleted(lessonId, nextUrl) {
+        let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+        if (!completed.includes(lessonId)) {
+            completed.push(lessonId);
+            localStorage.setItem('completedLessons', JSON.stringify(completed));
+        }
+        if (completed.length === 7) {
+            localStorage.setItem('canProceedToPostTest', 'true');
+            showCongratsModal(nextUrl);
+        } else {
+            window.location.href = nextUrl;
+        }
+    }
+    function showCongratsModal(nextUrl) {
+        const modal = document.getElementById('congrats-modal');
+        modal.style.display = 'flex';
+        document.getElementById('close-modal-btn').onclick = function() {
+            modal.style.display = 'none';
+            window.location.href = nextUrl;
+        };
+    }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YALEP - Information</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link href="yalep.css" rel="stylesheet">
+</head>
+<body>
+  <div id="app">
+    <!-- Facebook Like Modal -->
+    <div id="fb-modal" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:2000;">
+      <div style="background:#fff;padding:2rem 2.5rem;border-radius:16px;box-shadow:0 4px 32px rgba(0,0,0,0.2);max-width:90vw;text-align:center;">
+        <h2 style="color:#1877f2;margin-bottom:1rem;">Like us on Facebook!</h2>
+        <p style="margin-bottom:1.5rem;">To continue, please support us by liking our Facebook page.<br><b>Youth Advocates Zimbabwe</b></p>
+        <a href="https://www.facebook.com/YouthAdvocatesZimbabwe" target="_blank" id="fb-like-btn" style="display:inline-block;background:#1877f2;color:#fff;padding:0.75rem 2rem;border-radius:8px;font-size:1.1rem;text-decoration:none;font-weight:600;box-shadow:0 2px 8px rgba(24,119,242,0.1);margin-bottom:0.5rem;">Like our Facebook Page</a>
+        <p style="font-size:0.95rem;color:#555;">Thank you for supporting our community!</p>
+      </div>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="navbar-left" style="display: flex; align-items: center; gap: 1rem;">
+        <!-- <div class="navbar-brand">YALEP</div> -->
+        <img src="images/LOGO.jpg" alt="YALEP Logo" class="navbar-brand" style="height:40px;width:auto;object-fit:contain;">
+      </div>
+      <div class="navbar-controls">
+        <div class="theme-switch-wrapper">
+          <label class="theme-switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle" />
+            <div class="slider round">
+              <i class="fas fa-sun"></i>
+              <i class="fas fa-moon"></i>
+            </div>
+          </label>
+        </div>
+        <button class="navbar-toggle" aria-label="Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="lessons.html" class="nav-link"><i class="fas fa-book"></i> Lessons</a></li>
+        <li><a href="info.html" class="nav-link active"><i class="fas fa-info-circle"></i> Info</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="accordion">
+        <div class="accordion-item">
+          <button class="accordion-button">
+            <i class="fas fa-certificate"></i>
+            <span>Certification</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="accordion-content">
+            <p>Certificates are done by Youth advocates Zimbabwe contact 0777469107</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button">
+            <i class="fas fa-university"></i>
+            <span>About YALEP</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="accordion-content">
+            <img src="https://source.unsplash.com/random/400x200/?logo" alt="YALEP Logo" class="yalep-logo">
+            <p>The Youth Advocacy Learning and Empowerment Platform (YALEP) is an initiative by Youth Advocates Zimbabwe to provide accessible education to young people across the country.</p>
+            <p>Our programs focus on developing advocacy skills, leadership qualities, and community engagement techniques to empower the next generation of change-makers.</p>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <button class="accordion-button">
+            <i class="fas fa-comments"></i>
+            <span>Reviews & Comments</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="accordion-content">
+            <div id="reviews-section" style="margin-top:0.5rem;">
+              <p style="font-size:1.1rem;margin-bottom:1.2rem;">Tell us your views and comments, click the WhatsApp button and talk to us what's on your mind or call on 393</p>
+              <a href="https://wa.me/263777469107?text=Hi%20YALEP%2C%20I%20have%20a%20comment%20or%20review%20about%20the%20platform" target="_blank" style="display:inline-block;background:#25D366;color:#fff;padding:0.8rem 2rem;border-radius:6px;font-size:1.1rem;font-weight:600;text-decoration:none;box-shadow:0 2px 8px rgba(37,211,102,0.12);">
+                <i class="fab fa-whatsapp" style="font-size:1.3rem;margin-right:0.5rem;"></i> WhatsApp Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
+    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navigation
+      const navbarToggle = document.querySelector('.navbar-toggle');
+      const navbarLinks = document.querySelector('.navbar-links');
+
+      // Toggle mobile menu
+      navbarToggle.addEventListener('click', function() {
+        navbarLinks.classList.toggle('active');
+      });
+
+      // Info Page Accordion
+      const accordionButtons = document.querySelectorAll('.accordion-button');
+
+      accordionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          this.classList.toggle('active');
+          const content = this.nextElementSibling;
+          content.classList.toggle('active');
+        });
+      });
+
+      // Theme Switcher
+      const themeToggle = document.getElementById('theme-toggle');
+      const savedTheme = localStorage.getItem('theme');
+
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+      }
+
+      themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+
+      // Facebook Like Modal logic
+      const fbModal = document.getElementById('fb-modal');
+      const fbLikeBtn = document.getElementById('fb-like-btn');
+      fbLikeBtn.addEventListener('click', function(e) {
+        setTimeout(function() {
+          fbModal.style.display = 'none';
+        }, 1000); // Give time for the new tab to open
+      });
+      // Prevent closing modal by clicking outside
+      fbModal.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+  </script>
+</body>
+</html> 
