@@ -434,6 +434,50 @@
     .quiz-disclaimer {
       transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    /* Add improved mobile dropdown animation */
+    @media (max-width: 768px) {
+      .navbar-links {
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        box-shadow: var(--shadow);
+        width: 100%;
+        z-index: 999;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      }
+      .navbar-links.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .navbar-links li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      .navbar-toggle {
+        display: block;
+      }
+    }
+    @media (min-width: 769px) {
+      .navbar-links {
+        position: static;
+        flex-direction: row;
+        max-height: none !important;
+        background: none;
+        box-shadow: none;
+        width: auto;
+      }
+      .navbar-toggle {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -454,7 +498,7 @@
             </div>
           </label>
         </div>
-        <button class="navbar-toggle" aria-label="Menu">
+        <button class="navbar-toggle" aria-label="Menu" aria-expanded="false">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -562,6 +606,18 @@
         document.documentElement.setAttribute('data-theme', 'light');
         localStorage.setItem('theme', 'light');
       }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navigation
+      const navbarToggle = document.querySelector('.navbar-toggle');
+      const navbarLinks = document.querySelector('.navbar-links');
+      navbarToggle.addEventListener('click', function() {
+        navbarLinks.classList.toggle('active');
+        // Accessibility: set aria-expanded
+        const expanded = navbarLinks.classList.contains('active');
+        navbarToggle.setAttribute('aria-expanded', expanded);
+      });
     });
   </script>
 </body>
