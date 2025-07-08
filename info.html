@@ -8,6 +8,51 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="styles.css" rel="stylesheet">
   <link href="yalep.css" rel="stylesheet">
+  <style>
+    /* Add improved mobile dropdown animation */
+    @media (max-width: 768px) {
+      .navbar-links {
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        box-shadow: var(--shadow);
+        width: 100%;
+        z-index: 999;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      }
+      .navbar-links.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .navbar-links li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      .navbar-toggle {
+        display: block;
+      }
+    }
+    @media (min-width: 769px) {
+      .navbar-links {
+        position: static;
+        flex-direction: row;
+        max-height: none !important;
+        background: none;
+        box-shadow: none;
+        width: auto;
+      }
+      .navbar-toggle {
+        display: none;
+      }
+    }
+  </style>
 </head>
 <body>
   <div id="app">
@@ -36,7 +81,7 @@
             </div>
           </label>
         </div>
-        <button class="navbar-toggle" aria-label="Menu">
+        <button class="navbar-toggle" aria-label="Menu" aria-expanded="false">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -104,6 +149,9 @@
       // Toggle mobile menu
       navbarToggle.addEventListener('click', function() {
         navbarLinks.classList.toggle('active');
+        // Accessibility: set aria-expanded
+        const expanded = navbarLinks.classList.contains('active');
+        navbarToggle.setAttribute('aria-expanded', expanded);
       });
 
       // Info Page Accordion
