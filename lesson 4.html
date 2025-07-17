@@ -103,11 +103,26 @@
             background-color: #95a5a6;
             cursor: not-allowed;
         }
+        .image-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            background-color: #f0f0f0;
+        }
+        .image-container img {
+            max-width: 90%;
+            max-height: 500px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
       <div class="content-container">
         <h1>Common questions... ALL ABOUT HIV</h1>
+        <div class="image-container">
+            <img src="images/LOGO.jpg" alt="YALEP Logo">
+        </div>
         
         <p>HIV is a virus that affects the immune system and if not treated can lead to AIDS. HIV transmission can be prevented, and the HIV virus is treatable so it's good to know how you can protect yourself and others.</p>
         
@@ -258,6 +273,8 @@
             <button class="nav-button" onclick="markLessonCompleted(4, 'lesson 5.html')">Next →</button>
         </div>
     </div>
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3877be;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;">↑</button>
     <script>
     function markLessonCompleted(lessonId, nextUrl) {
       let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
@@ -267,6 +284,20 @@
       }
       window.location.href = nextUrl;
     }
+    </script>
+    <script>
+    // Back to Top Button logic
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     </script>
   <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
     &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
