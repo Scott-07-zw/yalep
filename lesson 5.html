@@ -103,6 +103,18 @@
             background-color: #95a5a6;
             cursor: not-allowed;
         }
+        .image-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            background-color: #f0f0f0;
+        }
+        .image-container img {
+            max-width: 90%;
+            max-height: 500px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -112,6 +124,9 @@
     </div>
     <div class="content-container">
         <h1>Module 5: -----------</h1>
+        <div class="image-container">
+            <img src="images/LOGO.jpg" alt="YALEP Logo">
+        </div>
         <h2>Lesson 5: -----------</h2>
         <p>This is the content of Lesson 5.</p>
         <p>You can add more content here as needed.</p>
@@ -122,6 +137,8 @@
             <button class="nav-button" onclick="markLessonCompleted(5, 'lesson 6.html')">Next →</button>
         </div>
     </div>
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3498db;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;"> 1</button>
     <script>
     function markLessonCompleted(lessonId, nextUrl) {
       let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
@@ -131,6 +148,18 @@
       }
       window.location.href = nextUrl;
     }
+    // Back to Top Button logic
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     </script>
   <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
     &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
