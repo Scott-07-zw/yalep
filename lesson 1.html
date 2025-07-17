@@ -156,7 +156,7 @@
         
         <div class="image-container">
             <!-- Replace with your image path -->
-            <img src="your-image.jpg" alt="People having a healthy discussion">
+            <img src="healthy relations.jpg" alt="People having a healthy discussion">
         </div>
         
         <div class="text-container">
@@ -341,7 +341,7 @@
 <p>Remember that these signs don't necessarily mean your partner is being unfaithful, but they may warrant an honest conversation about your relationship.</p>
 <!-- Navigation Buttons -->
         <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='course_outline.html'">← Back</button>
+            <button class="nav-button" onclick="window.location.href='lessons.html'">← Back</button>
             <button class="nav-button" onclick="markLessonCompleted(1, 'lesson 2.html')">Next →</button>
         </div> 
     </div>
@@ -354,6 +354,22 @@
       }
       window.location.href = nextUrl;
     }
+    </script>
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3498db;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;"> 1</button>
+    <script>
+    // Back to Top Button logic
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 200) {
+        backToTopBtn.style.display = 'block';
+      } else {
+        backToTopBtn.style.display = 'none';
+      }
+    });
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
     </script>
   <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
     &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
