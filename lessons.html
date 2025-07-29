@@ -6,8 +6,141 @@
   <title>YALEP - Lessons</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="css/lessons.css" rel="stylesheet">
   <style>
+    :root {
+      /* Color Variables */
+      --primary-color: #4a6fa5;
+      --primary-dark: #3a5a8a;
+      --secondary-color: #ff7e5f;
+      --text-color: #333;
+      --text-light: #666;
+      --text-on-primary: #fff;
+      --bg-color: #f8f9fa;
+      --card-bg: #fff;
+      --nav-bg: #fff;
+      --nav-text: #333;
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #5d8acd;
+      --primary-dark: #4a6fa5;
+      --text-color: #f0f0f0;
+      --text-light: #ccc;
+      --bg-color: #1a1a1a;
+      --card-bg: #2d2d2d;
+      --nav-bg: #222;
+      --nav-text: #f0f0f0;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      --shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--bg-color);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Roboto', sans-serif;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Layout */
+    #app {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--nav-bg);
+      color: var(--nav-text);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .navbar-brand {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .navbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .navbar-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      background-color: var(--primary-color);
+      color: var(--text-on-primary);
+    }
+
+    .navbar-toggle {
+      background: none;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    /* Back Button */
     .back-button {
       display: inline-flex;
       align-items: center;
@@ -27,92 +160,30 @@
     .back-button:hover {
       transform: translateX(-5px);
       background-color: var(--primary-color);
-      color: white;
+      color: var(--text-on-primary);
     }
 
-    .lessons-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .lesson-button {
-      position: relative;
-      background-color: var(--card-bg);
-      color: var(--text-color);
-      border: none;
-      border-radius: var(--border-radius);
-      padding: 2rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      text-decoration: none;
-      box-shadow: var(--shadow);
-    }
-
-    .lesson-button:hover {
-      transform: translateY(-5px);
-      background-color: var(--primary-color);
-      color: white;
-    }
-
-    .lesson-button.disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    .lesson-button.disabled:hover {
-      transform: none;
-    }
-
-    .lesson-button i {
-      font-size: 2rem;
-    }
-
-    .status-badge {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .status-badge.locked {
-      background-color: rgba(255, 0, 0, 0.2);
-      color: #ff4444;
-    }
-
-    .status-badge.completed {
-      background-color: rgba(46, 204, 113, 0.2);
-      color: #2ecc71;
-    }
-
+    /* Progress Section */
     .progress-container {
       margin-bottom: 2rem;
-      padding: 1rem;
+      padding: 1.5rem;
       background-color: var(--card-bg);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
     }
 
     .progress-title {
-      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
       font-weight: 600;
+      margin-bottom: 1rem;
     }
 
     .progress-bar {
       height: 10px;
-      background-color: #e0e0e0;
+      background-color: rgba(0, 0, 0, 0.1);
       border-radius: 5px;
       overflow: hidden;
+      margin-bottom: 0.5rem;
     }
 
     .progress-fill {
@@ -121,11 +192,99 @@
       transition: width 0.5s ease;
     }
 
-    /* Theme Switch Styles */
-    .navbar-controls {
+    .progress-text {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    /* Lessons Grid */
+    .lessons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .lesson-card {
+      position: relative;
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .lesson-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .lesson-card.completed {
+      border-left: 4px solid #2ecc71;
+    }
+
+    .lesson-card.locked {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .lesson-card.locked:hover {
+      transform: none;
+      box-shadow: var(--shadow);
+    }
+
+    .lesson-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+
+    .lesson-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .lesson-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .status-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-badge.available {
+      background-color: rgba(74, 111, 165, 0.1);
+      color: var(--primary-color);
+    }
+
+    .status-badge.locked {
+      background-color: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+    }
+
+    .status-badge.completed {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: #2ecc71;
+    }
+
+    /* Theme Switch */
+    .theme-switch-wrapper {
       display: flex;
       align-items: center;
-      gap: 1rem;
     }
 
     .theme-switch {
@@ -133,7 +292,6 @@
       display: inline-block;
       width: 50px;
       height: 24px;
-      margin-right: 10px;
     }
 
     .theme-switch input {
@@ -180,56 +338,216 @@
       border-radius: 50%;
     }
 
-    .theme-switch i {
-      position: absolute;
-      right: -25px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-color);
-      font-size: 14px;
+    .theme-icon {
+      margin: 0 0.5rem;
+      font-size: 1rem;
     }
 
-    /* Add improved mobile dropdown animation */
+    /* Contact Section */
+    .contact-section {
+      padding: 3rem 2rem;
+      background-color: var(--card-bg);
+      margin-top: 3rem;
+    }
+
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .section-description {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .contact-info {
+      background-color: var(--nav-bg);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-icon {
+      font-size: 1.25rem;
+      color: var(--primary-color);
+      margin-right: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .contact-details h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-map {
+      width: 100%;
+      height: 300px;
+      border: none;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form {
+      background-color: var(--nav-bg);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius);
+      background-color: var(--card-bg);
+      color: var(--text-color);
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .form-message {
+      display: none;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: var(--border-radius);
+      text-align: center;
+    }
+
+    .loading {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--text-color);
+    }
+
+    .error-message {
+      background-color: rgba(255, 68, 68, 0.1);
+      color: #ff4444;
+    }
+
+    .sent-message {
+      background-color: rgba(46, 204, 113, 0.1);
+      color: #2ecc71;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1.5rem;
+      background-color: var(--nav-bg);
+      color: var(--nav-text);
+      box-shadow: var(--shadow);
+    }
+
+    /* Responsive Design */
     @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+
       .navbar-links {
-        flex-direction: column;
-        position: absolute;
+        position: fixed;
         top: 70px;
         left: 0;
         right: 0;
-        background: var(--nav-bg);
+        background-color: var(--nav-bg);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
         box-shadow: var(--shadow);
-        width: 100%;
-        z-index: 999;
-        pointer-events: none;
+        transform: translateY(-100%);
         opacity: 0;
-        transform: translateY(-20px);
-        transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+        pointer-events: none;
+        transition: transform 0.3s ease, opacity 0.3s ease;
       }
+
       .navbar-links.active {
-        opacity: 1;
         transform: translateY(0);
+        opacity: 1;
         pointer-events: auto;
       }
-      .navbar-links li {
-        margin: 1rem 0;
-        text-align: center;
-      }
+
       .navbar-toggle {
         display: block;
       }
+
+      .main-content {
+        padding: 1.5rem;
+      }
+
+      .lessons-grid {
+        grid-template-columns: 1fr;
+      }
     }
+
     @media (min-width: 769px) {
       .navbar-links {
-        position: static;
-        flex-direction: row;
-        max-height: none !important;
-        background: none;
-        box-shadow: none;
-        width: auto;
-      }
-      .navbar-toggle {
-        display: none;
+        display: flex !important;
       }
     }
   </style>
@@ -238,21 +556,19 @@
   <div id="app">
     <!-- Navigation -->
     <nav class="navbar">
-      <div class="navbar-left" style="display: flex; align-items: center; gap: 1rem;">
-        <!-- <div class="navbar-brand">YALEP</div> -->
-        <img src="images/LOGO.jpg" alt="YALEP Logo" class="navbar-brand" style="height:40px;width:auto;object-fit:contain;">
+      <div class="navbar-left">
+        <img src="images/LOGO.jpg" alt="YALEP Logo" class="navbar-brand">
       </div>
       <div class="navbar-controls">
         <div class="theme-switch-wrapper">
-          <i class="fas fa-sun" style="color: #FFD700; font-size: 18px; margin-right: 8px;"></i>
-          <label class="theme-switch" for="theme-toggle">
-            <input type="checkbox" id="theme-toggle" />
-            <div class="slider round">
-              <i class="fas fa-moon"></i>
-            </div>
+          <i class="fas fa-sun theme-icon"></i>
+          <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
           </label>
+          <i class="fas fa-moon theme-icon"></i>
         </div>
-        <button class="navbar-toggle" aria-label="Menu" aria-expanded="false">
+        <button class="navbar-toggle" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
       </div>
@@ -278,119 +594,188 @@
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-        <p id="progress-text">0 of 7 lessons completed</p>
+        <p class="progress-text" id="progress-text">0 of 7 lessons completed</p>
       </div>
 
       <!-- Lessons Grid -->
       <div class="lessons-grid">
-        <a href="lesson 1.html" class="lesson-button" data-lesson-id="1">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 1</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 1.html" class="lesson-card" data-lesson-id="1">
+          <i class="fas fa-book-open lesson-icon"></i>
+          <h3 class="lesson-title">Healthy Relationships</h3>
+          <p class="lesson-subtitle">Building positive connections</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 2.html" class="lesson-button" data-lesson-id="2">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 2</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 2.html" class="lesson-card" data-lesson-id="2">
+          <i class="fas fa-shield-alt lesson-icon"></i>
+          <h3 class="lesson-title">Staying Safe</h3>
+          <p class="lesson-subtitle">Protecting yourself and others</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 3.html" class="lesson-button" data-lesson-id="3">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 3</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 3.html" class="lesson-card" data-lesson-id="3">
+          <i class="fas fa-heartbeat lesson-icon"></i>
+          <h3 class="lesson-title">All About HIV</h3>
+          <p class="lesson-subtitle">Understanding prevention and care</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 4.html" class="lesson-button" data-lesson-id="4">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 4</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 4.html" class="lesson-card" data-lesson-id="4">
+          <i class="fas fa-baby lesson-icon"></i>
+          <h3 class="lesson-title">Being a Young Parent</h3>
+          <p class="lesson-subtitle">Challenges and responsibilities</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 5.html" class="lesson-button" data-lesson-id="5">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 5</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 5.html" class="lesson-card" data-lesson-id="5">
+          <i class="fas fa-comments lesson-icon"></i>
+          <h3 class="lesson-title">Effective Communication</h3>
+          <p class="lesson-subtitle">Expressing yourself clearly</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 6.html" class="lesson-button" data-lesson-id="6">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 6</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 6.html" class="lesson-card" data-lesson-id="6">
+          <i class="fas fa-brain lesson-icon"></i>
+          <h3 class="lesson-title">Mental Wellness</h3>
+          <p class="lesson-subtitle">Caring for your emotional health</p>
+          <span class="status-badge available">Available</span>
         </a>
-        <a href="lesson 7.html" class="lesson-button" data-lesson-id="7">
-          <i class="fas fa-book-open"></i>
-          <span>Lesson 7</span>
-          <span class="status-badge">Available</span>
+        <a href="lesson 7.html" class="lesson-card" data-lesson-id="7">
+          <i class="fas fa-graduation-cap lesson-icon"></i>
+          <h3 class="lesson-title">Life Skills</h3>
+          <p class="lesson-subtitle">Preparing for adulthood</p>
+          <span class="status-badge available">Available</span>
         </a>
       </div>
     </main>
-  </div>
 
-  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
-    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
-  </footer>
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="contact-container">
+        <div class="section-header">
+          <h2 class="section-title">Contact Us</h2>
+          <h4 class="section-subtitle">Let's Talk. Let's get moving. lets hear your comments.</h4>
+          <p class="section-description"></p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt contact-icon"></i>
+              <div class="contact-details">
+                <h3>Address</h3>
+                <p>926 New Zengeza 4, Chitungwiza, Zimbabwe</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone-alt contact-icon"></i>
+              <div class="contact-details">
+                <h3>Call Us</h3>
+                <p>+263 77 746 9107 / 393</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope contact-icon"></i>
+              <div class="contact-details">
+                <h3>Email Us</h3>
+                <p>youthadvocateszim@gmail.com</p>
+              </div>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1794.9959973112273!2d31.07481682574619!3d-17.993338862405295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x193197416f39e9e5%3A0x16ae76fd511327d5!2sYouth%20Advocates%20Zimbabwe!5e0!3m2!1sen!2szw!4v1744378163283!5m2!1sen!2szw" class="contact-map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
+          <div class="contact-form">
+            <form action="forms/contact.php" method="post" class="php-email-form">
+              <div class="form-group">
+                <label for="name-field" class="form-label">Your Name</label>
+                <input type="text" name="name" id="name-field" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="email-field" class="form-label">Your Email</label>
+                <input type="email" name="email" id="email-field" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="subject-field" class="form-label">Subject</label>
+                <input type="text" name="subject" id="subject-field" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="message-field" class="form-label">Message</label>
+                <textarea name="message" id="message-field" class="form-control" rows="5" required></textarea>
+              </div>
+              <div class="form-message loading">Loading</div>
+              <div class="form-message error-message">Error sending message. Please try again.</div>
+              <div class="form-message sent-message">Your message has been sent. Thank you!</div>
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+    </footer>
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Navigation
+      // Navigation Toggle
       const navbarToggle = document.querySelector('.navbar-toggle');
       const navbarLinks = document.querySelector('.navbar-links');
 
-      // Toggle mobile menu
       navbarToggle.addEventListener('click', function() {
+        this.setAttribute('aria-expanded', 
+          this.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
         navbarLinks.classList.toggle('active');
-        // Accessibility: set aria-expanded
-        const expanded = navbarLinks.classList.contains('active');
-        navbarToggle.setAttribute('aria-expanded', expanded);
       });
 
-      // Load state from localStorage
+      // Lesson Progress Tracking
       const completedLessons = JSON.parse(localStorage.getItem('completedLessons')) || [];
       const progressFill = document.getElementById('progress-fill');
       const progressText = document.getElementById('progress-text');
+      const totalLessons = document.querySelectorAll('.lesson-card').length;
 
-      // Update progress display
       function updateProgress() {
-        const totalLessons = 7;
         const progress = (completedLessons.length / totalLessons) * 100;
         progressFill.style.width = `${progress}%`;
         progressText.textContent = `${completedLessons.length} of ${totalLessons} lessons completed`;
       }
 
-      // Initialize lesson buttons
-      const lessonButtons = document.querySelectorAll('.lesson-button');
-      lessonButtons.forEach(button => {
-        const lessonId = parseInt(button.getAttribute('data-lesson-id'));
+      document.querySelectorAll('.lesson-card').forEach(card => {
+        const lessonId = parseInt(card.dataset.lessonId);
         
-        // Mark as completed if already done
         if (completedLessons.includes(lessonId)) {
-          button.classList.add('completed');
-          const statusBadge = button.querySelector('.status-badge');
-          statusBadge.textContent = 'Completed';
-          statusBadge.classList.add('completed');
+          card.classList.add('completed');
+          const badge = card.querySelector('.status-badge');
+          badge.textContent = 'Completed';
+          badge.classList.replace('available', 'completed');
         }
-        
-        // Add click handler to track completion
-        button.addEventListener('click', function(e) {
-          // Mark lesson as completed if not already
+
+        card.addEventListener('click', function(e) {
+          if (this.classList.contains('locked')) {
+            e.preventDefault();
+            return;
+          }
+
           if (!completedLessons.includes(lessonId)) {
             completedLessons.push(lessonId);
             localStorage.setItem('completedLessons', JSON.stringify(completedLessons));
             this.classList.add('completed');
-            const statusBadge = this.querySelector('.status-badge');
-            statusBadge.textContent = 'Completed';
-            statusBadge.classList.add('completed');
+            const badge = this.querySelector('.status-badge');
+            badge.textContent = 'Completed';
+            badge.classList.replace('available', 'completed');
             updateProgress();
           }
         });
       });
 
-      // Initialize progress display
       updateProgress();
 
       // Theme Switcher
       const themeToggle = document.getElementById('theme-toggle');
-      const savedTheme = localStorage.getItem('theme');
-
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        themeToggle.checked = savedTheme === 'dark';
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      // Set initial theme
+      if (localStorage.getItem('theme') === 'dark' || 
+          (!localStorage.getItem('theme') && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggle.checked = true;
       }
 
       themeToggle.addEventListener('change', function() {
@@ -402,7 +787,29 @@
           localStorage.setItem('theme', 'light');
         }
       });
+
+      // Form Submission Handling
+      const contactForm = document.querySelector('.php-email-form');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formMessages = this.querySelectorAll('.form-message');
+          formMessages.forEach(msg => msg.style.display = 'none');
+          
+          const loadingMsg = this.querySelector('.loading');
+          loadingMsg.style.display = 'block';
+          
+          // Simulate form submission (replace with actual AJAX call)
+          setTimeout(() => {
+            loadingMsg.style.display = 'none';
+            const successMsg = this.querySelector('.sent-message');
+            successMsg.style.display = 'block';
+            this.reset();
+          }, 1500);
+        });
+      }
     });
   </script>
 </body>
-</html> 
+</html>
