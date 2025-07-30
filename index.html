@@ -220,6 +220,70 @@
       margin-bottom: 2rem;
       transition: var(--transition);
     }
+    /* Slideshow Styles */
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      max-height: 400px;
+      overflow: hidden;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      transition: opacity 1s ease-in-out;
+    }
+    .slide.active {
+      display: block;
+    }
+    .slideshow-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    .slideshow-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .slideshow-dot.active {
+      background-color: var(--primary-color);
+    }
+    .slideshow-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 10;
+    }
+    .slideshow-nav button {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s ease;
+    }
+    .slideshow-nav button:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
     .card-image {
       width: 100%;
       height: auto;
@@ -264,25 +328,51 @@
       <li><a href="info.html" class="nav-link"><i class="fas fa-info-circle"></i> Info</a></li>
     </ul>
   </nav>
+
+
   <main class="main-content">
     <div class="card">
-      <img src="images/yaz.jpg" alt="yalep Image" class="card-image">
+      <div class="slideshow-container">
+        <!-- Slideshow images - replace with your own images -->
+        <img src="images/LOGO.jpg" alt="YALEP Image 1" class="slide active">
+        <img src="images/yalep.jpg" alt="YALEP Image 2" class="slide">
+        <img src="images/yaz.jpg" alt="YALEP Image 3" class="slide">
+        <img src="images/yaz 2.jpg" alt="YALEP Image 4" class="slide">
+        
+        <!-- Navigation arrows -->
+        <div class="slideshow-nav">
+          <button id="prev-slide" aria-label="Previous slide"><i class="fas fa-chevron-left"></i></button>
+          <button id="next-slide" aria-label="Next slide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+
+        
+        <!-- Dots indicators -->
+        <div class="slideshow-controls">
+          <div class="slideshow-dot active" data-index="0"></div>
+          <div class="slideshow-dot" data-index="1"></div>
+          <div class="slideshow-dot" data-index="2"></div>
+          <div class="slideshow-dot" data-index="3"></div>
+        </div>
+      </div>
+
       <div class="card-content">
-        <p>Welcome to the Youth Advocacy Learning and Empowerment Platform (YALEP). Our mission is to provide adolecents and young people with realistic ,developmental and scientifical accurate SRH information.</p>
+        <p>Welcome to the Youth Advocacy Learning and Empowerment Platform (YALEP). Our mission is to provide adolescents and young people with realistic, developmental and scientifically accurate SRH information.</p>
         <p>Through this platform, you'll gain access to important lessons, assessments, and resources that will help you become an effective advocate for positive change in your community.</p>
         <p>Start your learning journey today by exploring the lessons section, or learn more about our program in the info section.</p>
         <p>We are committed to providing a safe and supportive learning environment for all our users.</p>
       </div>
     </div>
+
     <div class="card">
-      <img src="images/yaz 2.jpg" alt="Images/yaz 2.jpg" class="card-image">
+      <img src="images/yaz 2.jpg" alt="YALEP Team" class="card-image">
       <div class="card-content">
-        <p>YALEP is brought to you by Youth Advocates Zimbabwe, a non-profit organization dedicated to empowering young people with capabilities and oppotunities for healthy productive and fufilling lives. </p>
+        <p>YALEP is brought to you by Youth Advocates Zimbabwe, a non-profit organization dedicated to empowering young people with capabilities and opportunities for healthy productive and fulfilling lives.</p>
         <p>Our programs are designed to be accessible, engaging, and impactful, helping you develop the skills and knowledge needed to make a difference.</p>
         <p>For certification information or questions, please visit the info section or contact us directly.</p>
       </div>
     </div>
   </main>
+  
   <footer>
     &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
   </footer>
@@ -291,18 +381,20 @@
       // Navigation elements
       const navbarToggle = document.querySelector('.navbar-toggle');
       const navbarLinks = document.querySelector('.navbar-links');
+      
       // Toggle mobile menu
       navbarToggle.addEventListener('click', function() {
         navbarLinks.classList.toggle('active');
-        // Accessibility: set aria-expanded
         const expanded = navbarLinks.classList.contains('active');
         navbarToggle.setAttribute('aria-expanded', expanded);
       });
+      
       // Theme Switcher
       const themeToggle = document.getElementById('theme-toggle');
       const sunIcon = document.getElementById('sun-icon');
       const moonIcon = document.getElementById('moon-icon');
       const savedTheme = localStorage.getItem('theme');
+      
       function updateThemeIcons(theme) {
         if (theme === 'dark') {
           sunIcon.style.opacity = '0.5';
@@ -312,6 +404,7 @@
           moonIcon.style.opacity = '0.5';
         }
       }
+      
       if (savedTheme) {
         document.documentElement.setAttribute('data-theme', savedTheme);
         themeToggle.checked = savedTheme === 'dark';
@@ -319,6 +412,7 @@
       } else {
         updateThemeIcons('light');
       }
+      
       themeToggle.addEventListener('change', function() {
         if (this.checked) {
           document.documentElement.setAttribute('data-theme', 'dark');
@@ -330,7 +424,79 @@
           updateThemeIcons('light');
         }
       });
+      
+      // Slideshow functionality
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.slideshow-dot');
+      const prevBtn = document.getElementById('prev-slide');
+      const nextBtn = document.getElementById('next-slide');
+      let currentSlide = 0;
+      let slideInterval;
+      
+      // Function to show a specific slide
+      function showSlide(index) {
+        // Hide all slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Show the selected slide
+        currentSlide = (index + slides.length) % slides.length;
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+      }
+      
+      // Function to go to next slide
+      function nextSlide() {
+        showSlide(currentSlide + 1);
+      }
+      
+      // Function to go to previous slide
+      function prevSlide() {
+        showSlide(currentSlide - 1);
+      }
+      
+      // Start automatic slideshow
+      function startSlideshow() {
+        slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+      }
+      
+      // Stop automatic slideshow
+      function stopSlideshow() {
+        clearInterval(slideInterval);
+      }
+      
+      // Event listeners for navigation
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopSlideshow();
+        startSlideshow();
+      });
+      
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopSlideshow();
+        startSlideshow();
+      });
+      
+      // Event listeners for dots
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          const slideIndex = parseInt(dot.getAttribute('data-index'));
+          showSlide(slideIndex);
+          stopSlideshow();
+          startSlideshow();
+        });
+      });
+      
+      // Start the slideshow
+      startSlideshow();
+      
+      // Pause slideshow when hovering over it
+      const slideshowContainer = document.querySelector('.slideshow-container');
+      slideshowContainer.addEventListener('mouseenter', stopSlideshow);
+      slideshowContainer.addEventListener('mouseleave', startSlideshow);
     });
+    
     function markLessonCompleted(lessonId, nextUrl) {
       let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
       if (!completed.includes(lessonId)) {
