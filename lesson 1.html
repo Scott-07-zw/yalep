@@ -13,6 +13,7 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #f9f9f9;
+            padding-bottom: 80px; /* Add padding to prevent content from being hidden behind fixed footer */
         }
         
         .content-container {
@@ -124,10 +125,24 @@
             background-color: #f9f9f9;
         }
         
-        .nav-buttons {
+        /* Floating Navigation Footer */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+        
+        .nav-footer-container {
+            max-width: 1000px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
+            padding: 0 20px;
         }
         
         .nav-button {
@@ -139,6 +154,8 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
         }
         
         .nav-button:hover {
@@ -148,22 +165,56 @@
         strong {
             font-weight: bold;
         }
+        
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        #backToTopBtn:hover {
+            background: #2980b9;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #2c3e50;
+            color: white;
+            font-size: 1rem;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
+     
     <div class="content-container">
         <h1>HEALTHY RELATIONSHIPS</h1>
         
         <div class="image-container">
             <!-- Replace with your image path -->
-            <img src="healthy relations.jpg" alt="People having a healthy discussion">
+            <img src="healthy relatiions.jpg" alt="">
         </div>
         
         <div class="text-container">
 
-            <h2>Types of reletioinships</h2>
+            <h2>Types of relationships</h2>
             <p>Friendships and other relationships are part of our everyday lives. They range from: <br>
-                <li><b>family reletioinships</b></li>
+                <li><b>family relationships</b></li>
                 <li><b>casual friendships</b> that you have with classmates and neighbors, to deep, </li>  
                 <li><b>heart-breaking romantic relationships.</b> </li>
                  Positive, healthy relationships are important and help us to feel good about ourselves. Friends can help us to overcome any problems we may have, and are the people who are there for us for both the magical and miserable times.</p>
@@ -345,12 +396,25 @@
 </ul>
 
 <p>Remember that these signs don't necessarily mean your partner is being unfaithful, but they may warrant an honest conversation about your relationship.</p>
-<!-- Navigation Buttons -->
-        <div class="nav-buttons">
+
+        </div>
+    </div>
+    
+    <!-- Floating Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-footer-container">
             <button class="nav-button" onclick="window.location.href='lessons.html'">← Back</button>
             <button class="nav-button" onclick="markLessonCompleted(1, 'lesson 2.html')">Next →</button>
-        </div> 
+        </div>
     </div>
+    
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top">↑</button>
+    
+    <footer>
+        &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+    </footer>
+    
     <script>
     function markLessonCompleted(lessonId, nextUrl) {
       let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
@@ -360,10 +424,7 @@
       }
       window.location.href = nextUrl;
     }
-    </script>
-    <!-- Back to Top Button -->
-    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3498db;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;"> 1</button>
-    <script>
+    
     // Back to Top Button logic
     const backToTopBtn = document.getElementById('backToTopBtn');
     window.addEventListener('scroll', function() {
@@ -377,8 +438,5 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
     </script>
-  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
-    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
-  </footer>
 </body>
 </html>
