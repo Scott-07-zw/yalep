@@ -3,64 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 4: ALL ABOUT HIV</title>
+    <title>Module 4: Being a Young Parent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #ff7e5f;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.15);
         }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 80px; /* Space for fixed footer */
+        }
+
         .content-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             padding: 30px;
             position: relative;
-            padding-bottom: 80px; /* Space for buttons */
         }
-        
+
         h1 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
             border-bottom: 2px solid #3498db;
             padding-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         h2 {
             color: #2980b9;
             margin-top: 30px;
             border-left: 4px solid #3498db;
             padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         .note {
             background-color: #f8f9fa;
             border-left: 4px solid #3498db;
             padding: 15px;
             margin: 15px 0;
         }
-        
+
         .note strong {
             color: #e74c3c;
         }
-        
+
         .checklist {
             list-style-type: none;
             padding-left: 0;
         }
-        
+
         .checklist li {
             position: relative;
             padding-left: 30px;
             margin-bottom: 10px;
         }
-        
+
         .checklist li:before {
             content: "✓";
             color: #27ae60;
@@ -68,24 +90,49 @@
             left: 0;
             font-weight: bold;
         }
-        
+
         p {
             margin-bottom: 16px;
         }
 
-        /* Navigation buttons */
-        .nav-buttons {
+        .image-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            background-color: #f0f0f0;
+            border-radius: var(--border-radius);
+        }
+
+        .image-container img {
+            max-width: 90%;
+            max-height: 500px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Fixed Navigation Footer */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 30px;
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
-            position: bottom;
-            bottom: 20px;
-            left: 30px;
-            right: 30px;
         }
 
         .nav-button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: #3498db;
             color: white;
             border: none;
@@ -93,223 +140,203 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-button:hover {
             background-color: #2980b9;
+            box-shadow: var(--shadow-hover);
         }
 
         .nav-button:disabled {
             background-color: #95a5a6;
             cursor: not-allowed;
         }
-        .image-container {
-            width: 100%;
-            text-align: center;
-            padding: 20px 0;
-            background-color: #f0f0f0;
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            z-index: 1000;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-hover);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .image-container img {
-            max-width: 90%;
-            max-height: 500px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+        #backToTopBtn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            #backToTopBtn {
+                bottom: 90px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-      <div class="content-container">
+    <div class="content-container">
         <h1>Common questions about... BEING A YOUNG PARENT</h1>
         <div class="image-container">
-            <img src="images/LOGO.jpg" alt="YALEP Logo">
-        </div>
-        <div class="text-container">
-            <p>Having a baby and becoming a parent is life-changing. A new baby can bring great joy, but bringing up a child is 
-                also really hard work, whether you’re on your own or in a relationship. There can be many different emotions, 
-                depending on whether the pregnancy is planned or unplanned.<br>
- Becoming a new mum or dad can feel overwhelming and lonely at times, and for young parents it can be even harder. 
- Sometimes young parents are judged unfairly and face discrimination – even if they’re doing a great job of parenting. <br>
-You may feel like people don’t trust you to make decisions that affect your baby and think that they know best. <br>
-Meeting other parents, the same age, and having someone to talk to, can help you share experiences and feel confident
- about what you’re doing.</p>
-
-<h2>Question 1: How do I know if I’m ready to have a baby?</h2>
-<p>Deciding to have a baby, and bring up a child, is a big decision. Having a child changes your life forever. Being
-     a parent can be the most amazing experience, but it’s also really tough and lots of work.  Only you can decide 
-     if you feel ready to have a baby, but knowing what to expect can be helpful.</p>
-<ul>
-<li><b>Love and care</b> - Children need parents who are loving, kind and patient to care for them, keep them safe
-     and guide them as they grow up.</li>
-<li><b>Resources, including money</b> - Children need somewhere to live, clothes, food, and healthcare.</li>
-<li><b>Time</b> - Bringing up a child is a full-time job, especially when they are very young, and it can be hard to juggle school
-     or work with having a baby.</li>
-</ul>
-<p>Bringing up a child on your own can be hard because of the strong emotions involved, and all the work falls on you. But joint
-     parenting can be very difficult too when you have different ideas about how to bring up a child, and the pressures of caring
-      for a baby can put stress on even the strongest relationships. It can be made even harder if you’re young parents and there
-       are adults who believe you don’t have the skills to parent properly.<br>
-Talk to people you trust and find out about their experiences of parenting. Think about the responsibility, and how the time and
- effort required might impact on your life.</p>
-<div class="note"><strong>NOTE:</strong> If you don’t want to get pregnant, remember to use condoms and discuss other family planning
-     options with your health care provider and with your partner.</div>
-
-<h2>Question 2: I’m not ready to become a father. What can I do to prevent a pregnancy?</h2>
-<p>Having a baby with someone, and becoming a father, is a big decision and responsibility. Having a child changes your life and
-     it’s important that you feel ready to fully commit to the mother and baby if that happens.<br>
-If you’re not ready to become a father, then it is your responsibility to ensure you are preventing an unplanned pregnancy. You 
-should always use a condom when having sex!</p>
-<p>If your girlfriend isn’t yet pregnant, and is talking about wanting a baby, tell her honestly that you don’t feel ready to
-     become a father, and suggest that you wait a while until you both feel ready.  </p>
-<p>If your girlfriend is already pregnant, you need to be sensitive to her feelings and the position she’s in. You can tell your
-     girlfriend how you feel about the pregnancy and share your worries. She may decide that she wants to have the baby
-      – this is her decision – but she may also not feel ready. You will both need support to discuss your options with someone.</p>
-<div class="note"><strong>NOTE:</strong> It’s important that you’re honest with her about how you’re feeling, but you also 
-    need to accept your responsibility to support her as a mother, and your responsibility as a parent to care for and protect the baby.</div>
-
-<h2>Question 3:  I am pregnant and feel so alone, who can help me with being a young mum?</h2>
-<p>Becoming a new mum or dad can feel overwhelming and lonely at times and, for young parents, it can be even harder. It can
-     be difficult to meet other parents the same age, and you may be reluctant to join support groups for parents of all ages.
-      Sometimes young parents are judged unfairly and face discrimination – even if they’re doing a fantastic job of parenting.</p>
-<div class="note"><strong>NOTE:</strong> Meeting up with other pregnant girls or parents the same age as you can be really 
-    helpful. There are organisations that just provide support and advice for young parents, and support groups where you 
-    can feel comfortable to talk with others. If there aren’t any local groups you could try looking online. Check local 
-    links for support. It’s good to chat and make friends. It can help you feel less lonely and isolated. Share experiences.</div>
-
-<h2>Question 4: What can I do to have a healthy pregnancy and give my baby the best start?</h2>
-<p>There are many things that you can do to have a healthy pregnancy and make sure that your baby has the best possible
-     start in life. Looking after your physical and mental health in pregnancy is important. There are lots of things you can
-      do to prepare for pregnancy by making changes in your life to stay healthy.<br>
-Eating and resting well will help, and there are supplements and vitamins that your doctor or midwife might recommend, such 
-as folic acid which is taken by women before they get pregnant and for the first 12 weeks. Folic acid is particularly important
- as it supports good development of the baby’s nervous system.<br>
-If you smoke or drink alcohol, you should stop as these can cause various health problems for your unborn baby and lead to long term harm.</p>
-<div class="note"><strong>NOTE:</strong> If you think you might be pregnant, it’s important to go to the doctors for a pregnancy 
-    test to get it confirmed. Your doctor will then give you dates for a series of ante-natal care (ANC) appointments to check 
-    your health and the development of your baby. These visits are important so that the doctor can check your weight, blood 
-    pressure, measure the baby’s growth and test for common problems during pregnancy.<br>
-It is important for the health of your baby that you go to all of these appointments.<br>
-After you’ve had your baby, make sure to go to your baby/mother follow up appointments with your doctor or midwife so that 
-your baby can be weighed, monitored, and get all the vaccinations that they need. You will also have health checks and can 
-talk to them about any concerns or questions you might have.  These appointments will still be available even with COVID-19. 
-They might just be in a different place or at a different time. Check with your clinic or doctor.</div>
-<div class="note"><strong>NOTE:</strong> If you are living with HIV your health provider can talk to you about how HIV
-     treatment can ensure that HIV is not transmitted to your baby during pregnancy, birth or through breastfeeding. 
-     They can also help you monitor other health issues to ensure you can have a healthy pregnancy.</div>
-
-<h2>Question 5: How much alcohol is safe to drink during pregnancy?</h2>
-<p>We don’t fully understand the amount of alcohol that is safe in pregnancy, so the advice is not to drink any alcohol at all.<br>
-Your baby can’t process alcohol as well as you can, and too much alcohol can seriously affect their development.<br>
-When you drink, alcohol passes from your blood through the placenta to your baby.<br>
-Drinking alcohol, especially in the first 3 months of pregnancy, increases the risk of miscarriage, premature birth and your baby
- having a low birthweight. Drinking heavily throughout pregnancy can cause your baby to develop a serious condition called Foetal
-  Alcohol Syndrome which can significantly affect their physical and mental development.</p>
-
-<h2>Question 6: How often should I breastfeed my baby and when should I stop?</h2>
-<p>Breastfeeding has many benefits for babies and mums, providing all the nutrition a baby needs and important antibodies that
-     protect against disease and infections. New-born babies should be breastfed “on demand” – this means as often as the child wants.<br>
-It’s your choice how long you breastfeed your baby, but experts recommend that babies are exclusively breastfed (without formula, 
-water, juice, non–breast milk, or food) for the first 6 months. If breastfeeding is working for you and your baby, you can continue
- breastfeeding until your baby is 12 months, or even longer if you wish.</p>
-<div class="note"><strong>NOTE:</strong> If you have problems with breastfeeding, or your baby is not gaining weight, talk to your 
-    health worker and discuss feeding support or alternative feeding. If you are not able to breastfeed you should not feel guilty or be judged by anyone.<br>
-If you are living with HIV and taking ART, it is recommended that you breastfeed. You should not mix breastfeeding with other 
-food or liquids for the first 6 months. Read more in the Q&A on Living with HIV.</div>
-
-<h2>Question 7: My mother-in-law is really controlling and won’t let me look after my baby myself; how can I get her to back off?</h2>
-<p>One of the challenges of becoming a parent is that everyone has different ideas about how best to bring up a child and wants
-     to offer their advice – whether you want/need it or not. This is especially the case with young mothers. Your relatives are 
-     probably trying to be helpful, even though it may not feel like it!<br>
-Having someone around who is always commenting on what you’re doing can be really hard, you can feel judged, and it can affect
- your confidence as a mum.<br>
-Ask your friends or partner’s advice on how to talk to your mother-in-law, and how you can involve her in a positive way where 
-she can help, and you can get a break.</p>
-
-<h2>Question 8: My boyfriend’s family really wanted their first grandchild to be a boy; they blame me for having a girl. How can I respond?</h2>
-<p>Most of us don’t mind whether we have a boy or girl when we become parents– having a healthy baby is more important. This makes
-     it hard when other people - particularly those close to us - get their hearts set on having either a boy or a girl. In some places, boys are seen as more valuable than girls, and this may be the reason your partner’s family is reacting in this way.</p>
-<div class="note"><strong>NOTE:</strong> Your baby’s sex at birth can’t be influenced, despite any myths you might have heard. The 
-    sex of a baby actually depends on whether the father’s sperm is carrying an X for female or Y for male ‘chromosome’.<br>
-Make it clear that you’re very happy to have a healthy baby girl and tell them that you’re looking forward to them having a close 
-relationship with their granddaughter. Talk to others who have been in the same situation, some families can be very cruel and
- put ‘blame’ on the mother, so it’s important you have people to talk to.<br>
-Tell them that girls have equal value to boys and, if supported, can succeed as well as them in life.</div>
-
-<h2>Question 9: My baby won’t stop crying; what can I do?</h2>
-<p>If you feel like your baby cries a lot, for a long time, and you find it hard to settle them, you’re not alone. All babies
-     cry sometimes, but some babies cry more than others. Because the baby can’t tell us what is wrong it’s difficult to know 
-     why they are crying. Being at home with a baby who cries a lot is tough to cope with.<br>
-If your baby’s crying is making you feel overwhelmed or angry, put them down in a safe place, such as their cot, and go into a 
-different room for 10 minutes. This will give you a chance to calm down before returning to your baby and no harm will come to 
-them. Tell someone immediately if you are feeling like this – your partner, or a friend or health professional, so that you can
- get the support you need.<br>
-The good news is that, as your baby grows, they usually start to cry less. If your baby cries a lot, or the cry sounds different
- to normal, or if they have other symptoms, such as refusing to feed, this could be a sign that they are unwell and you should 
- contact your doctor.</p>
-
-<h2>Question 10: My partner says I don’t give him any attention now that we’ve had a baby. I think he is jealous, but I’m so tired 
-    by the time the baby goes to bed that I don’t have any energy for him.</h2>
-<p>Having a baby can feel overwhelming, especially if it’s your first, and it can take up almost all your time and energy. This can
-     be a difficult time for your relationship, and it’s important for you and your partner to talk about how you’re both feeling.
-      Many women, especially if they’re breastfeeding their babies, can feel like they have little time to do anything other than 
-      look after their baby. They often feel exhausted if they are getting up a lot during the night. Some men may feel upset that
-       their partner seems to have no time or interest in them anymore.</p>
-<div class="note"><strong>NOTE:</strong> Many new mums find that their partners put pressure on them to start having sex again when 
-    
-    they’re not physically or emotionally ready. New mums are advised not to have sex for 4-6 weeks after the birth – you may still 
-    not feel ready after this amount of time.<br>
-Remember you should not be forced or coerced into sex. Discuss your feelings honestly with your husband and see how you can spend
- time together and enjoy your relationship despite all the challenges of a new baby.</div>
-
-<h2>Question 11: I am not a good mother, I feel like giving up.</h2>
-<p>Having a baby leads to huge hormonal changes in a woman and this can trigger extreme emotions - especially in the first few days 
-    and weeks. Feelings of joy can quickly turn to sadness and worry. For many women, they are dealing with physical issues due to
-     the birth- exhaustion and pain, as well as all the emotions.</p>
-<div class="note"><strong>NOTE:</strong> It is normal to expect to feel low and face struggles in the first few days. However, 
-    feelings of sadness and anxiety that go on for longer may be a sign of post-natal depression that can lead to you feeling isolated, 
-    inadequate and unable to cope. If you have post-natal depression you need to seek help.<br>
-Sometimes all you need is some time to talk through feelings, a break from parenting and time to yourself or support from others
- who have had similar experiences. For some people they need more specific support in the form of therapy or treatment – something
-  you can discuss with the doctor.<br>
-Don’t wait until you are unable to cope – speak to someone about your feelings as early as possible.</div>
+            <img src="images/pregnancy.jpg" alt="Young Parents Illustration">
         </div>
         
-
+        <p>Having a baby and becoming a parent is life-changing. A new baby can bring great joy, but bringing up a child is also really hard work, whether you're on your own or in a relationship. There can be many different emotions, depending on whether the pregnancy is planned or unplanned.</p>
         
+        <p>Becoming a new mum or dad can feel overwhelming and lonely at times, and for young parents it can be even harder. Sometimes young parents are judged unfairly and face discrimination - even if they're doing a great job of parenting.</p>
+        
+        <p>You may feel like people don't trust you to make decisions that affect your baby and think that they know best.</p>
+        
+        <p>Meeting other parents, the same age, and having someone to talk to, can help you share experiences and feel confident about what you're doing.</p>
 
-        <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='lesson 3.html'">← Back</button>
-            <button class="nav-button" onclick="markLessonCompleted(4, 'lesson 5.html')">Next →</button>
+        <h2>Question 1: How do I know if I'm ready to have a baby?</h2>
+        <p>Deciding to have a baby, and bring up a child, is a big decision. Having a child changes your life forever. Being a parent can be the most amazing experience, but it's also really tough and lots of work. Only you can decide if you feel ready to have a baby, but knowing what to expect can be helpful.</p>
+        <ul class="checklist">
+            <li><strong>Love and care</strong> - Children need parents who are loving, kind and patient to care for them, keep them safe and guide them as they grow up.</li>
+            <li><strong>Resources, including money</strong> - Children need somewhere to live, clothes, food, and healthcare.</li>
+            <li><strong>Time</strong> - Bringing up a child is a full-time job, especially when they are very young, and it can be hard to juggle school or work with having a baby.</li>
+        </ul>
+        <div class="note"><strong>NOTE:</strong> If you don't want to get pregnant, remember to use condoms and discuss other family planning options with your health care provider and with your partner.</div>
+        
+        <h2>Question 2: I'm not ready to become a father. What can I do to prevent a pregnancy?</h2>
+        <p>Having a baby with someone, and becoming a father, is a big decision and responsibility. Having a child changes your life and it's important that you feel ready to fully commit to the mother and baby if that happens.</p>
+        <p>If you're not ready to become a father, then it is your responsibility to ensure you are preventing an unplanned pregnancy. You should always use a condom when having sex!</p>
+        <div class="note"><strong>NOTE:</strong> It's important that you're honest with her about how you're feeling, but you also need to accept your responsibility to support her as a mother, and your responsibility as a parent to care for and protect the baby.</div>
+        
+        <h2>Question 3: I am pregnant and feel so alone, who can help me with being a young mum?</h2>
+        <p>Becoming a new mum or dad can feel overwhelming and lonely at times and, for young parents, it can be even harder. It can be difficult to meet other parents the same age, and you may be reluctant to join support groups for parents of all ages. Sometimes young parents are judged unfairly and face discrimination - even if they're doing a fantastic job of parenting.</p>
+        <div class="note"><strong>NOTE:</strong> Meeting up with other pregnant girls or parents the same age as you can be really helpful. There are organisations that just provide support and advice for young parents, and support groups where you can feel comfortable to talk with others.</div>
+        
+        <h2>Question 4: What can I do to have a healthy pregnancy and give my baby the best start?</h2>
+        <p>There are many things that you can do to have a healthy pregnancy and make sure that your baby has the best possible start in life. Looking after your physical and mental health in pregnancy is important. There are lots of things you can do to prepare for pregnancy by making changes in your life to stay healthy.</p>
+        <div class="note"><strong>NOTE:</strong> If you think you might be pregnant, it's important to go to the doctors for a pregnancy test to get it confirmed. Your doctor will then give you dates for a series of ante-natal care (ANC) appointments to check your health and the development of your baby.</div>
+        <div class="note"><strong>NOTE:</strong> If you are living with HIV your health provider can talk to you about how HIV treatment can ensure that HIV is not transmitted to your baby during pregnancy, birth or through breastfeeding.</div>
+        
+        <h2>Question 5: How much alcohol is safe to drink during pregnancy?</h2>
+        <p>We don't fully understand the amount of alcohol that is safe in pregnancy, so the advice is not to drink any alcohol at all.</p>
+        <p>Your baby can't process alcohol as well as you can, and too much alcohol can seriously affect their development.</p>
+        
+        <h2>Question 6: How often should I breastfeed my baby and when should I stop?</h2>
+        <p>Breastfeeding has many benefits for babies and mums, providing all the nutrition a baby needs and important antibodies that protect against disease and infections. New-born babies should be breastfed "on demand" - this means as often as the child wants.</p>
+        <div class="note"><strong>NOTE:</strong> If you have problems with breastfeeding, or your baby is not gaining weight, talk to your health worker and discuss feeding support or alternative feeding. If you are not able to breastfeed you should not feel guilty or be judged by anyone.</div>
+        
+        <h2>Question 7: My mother-in-law is really controlling and won't let me look after my baby myself; how can I get her to back off?</h2>
+        <p>One of the challenges of becoming a parent is that everyone has different ideas about how best to bring up a child and wants to offer their advice - whether you want/need it or not. This is especially the case with young mothers. Your relatives are probably trying to be helpful, even though it may not feel like it!</p>
+        
+        <h2>Question 8: My boyfriend's family really wanted their first grandchild to be a boy; they blame me for having a girl. How can I respond?</h2>
+        <p>Most of us don't mind whether we have a boy or girl when we become parents- having a healthy baby is more important. This makes it hard when other people - particularly those close to us - get their hearts set on having either a boy or a girl.</p>
+        <div class="note"><strong>NOTE:</strong> Your baby's sex at birth can't be influenced, despite any myths you might have heard. The sex of a baby actually depends on whether the father's sperm is carrying an X for female or Y for male 'chromosome'.</div>
+        
+        <h2>Question 9: My baby won't stop crying; what can I do?</h2>
+        <p>If you feel like your baby cries a lot, for a long time, and you find it hard to settle them, you're not alone. All babies cry sometimes, but some babies cry more than others. Because the baby can't tell us what is wrong it's difficult to know why they are crying. Being at home with a baby who cries a lot is tough to cope with.</p>
+        
+        <h2>Question 10: My partner says I don't give him any attention now that we've had a baby. I think he is jealous, but I'm so tired by the time the baby goes to bed that I don't have any energy for him.</h2>
+        <p>Having a baby can feel overwhelming, especially if it's your first, and it can take up almost all your time and energy. This can be a difficult time for your relationship, and it's important for you and your partner to talk about how you're both feeling.</p>
+        <div class="note"><strong>NOTE:</strong> Many new mums find that their partners put pressure on them to start having sex again when they're not physically or emotionally ready. New mums are advised not to have sex for 4-6 weeks after the birth - you may still not feel ready after this amount of time.</div>
+        
+        <h2>Question 11: I am not a good mother, I feel like giving up.</h2>
+        <p>Having a baby leads to huge hormonal changes in a woman and this can trigger extreme emotions - especially in the first few days and weeks. Feelings of joy can quickly turn to sadness and worry. For many women, they are dealing with physical issues due to the birth- exhaustion and pain, as well as all the emotions.</p>
+        <div class="note"><strong>NOTE:</strong> It is normal to expect to feel low and face struggles in the first few days. However, feelings of sadness and anxiety that go on for longer may be a sign of post-natal depression that can lead to you feeling isolated, inadequate and unable to cope. If you have post-natal depression you need to seek help.</div>
+        
+        <footer>
+            &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Fixed Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="nav-button" onclick="window.location.href='lessons.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="nav-button" onclick="markLessonCompleted(4, 'lesson 5.html')">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
+
     <!-- Back to Top Button -->
-    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3877be;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;">↑</button>
+    <button id="backToTopBtn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-    function markLessonCompleted(lessonId, nextUrl) {
-      let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-      if (!completed.includes(lessonId)) {
-        completed.push(lessonId);
-        localStorage.setItem('completedLessons', JSON.stringify(completed));
-      }
-      window.location.href = nextUrl;
-    }
+        // Lesson completion tracking
+        function markLessonCompleted(lessonId, nextUrl) {
+            let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            if (!completed.includes(lessonId)) {
+                completed.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completed));
+            }
+            window.location.href = nextUrl;
+        }
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
-    <script>
-    // Back to Top Button logic
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 200) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
-      }
-    });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    </script>
-  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
-    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
-  </footer>
 </body>
 </html>
