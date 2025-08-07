@@ -3,62 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 3: All About HIV</title>
+    <title>Module 2: Staying Safe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #ff7e5f;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #5d8acd;
+            --primary-dark: #4a6fa5;
+            --text-color: #f0f0f0;
+            --text-light: #ccc;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --shadow: 0 2px 10px rgba(0,0,0,0.3);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 80px; /* Space for fixed footer */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        
+
         .content-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             padding: 30px;
+            position: relative;
         }
-        
+
         h1 {
-            color: #2c3e50;
+            color: var(--primary-color);
             text-align: center;
             margin-bottom: 30px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         h2 {
-            color: #2980b9;
+            color: var(--primary-dark);
             margin-top: 30px;
-            border-left: 4px solid #b30600;
+            border-left: 4px solid var(--primary-color);
             padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         .note {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
+            background-color: rgba(74, 111, 165, 0.1);
+            border-left: 4px solid var(--primary-color);
             padding: 15px;
-            margin: 15px 0;
+            margin: 20px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
         }
-        
+
         .note strong {
             color: #e74c3c;
         }
-        
+
         .checklist {
             list-style-type: none;
             padding-left: 0;
         }
-        
+
         .checklist li {
             position: relative;
             padding-left: 30px;
             margin-bottom: 10px;
         }
-        
+
         .checklist li:before {
             content: "✓";
             color: #27ae60;
@@ -66,301 +103,262 @@
             left: 0;
             font-weight: bold;
         }
-        
-        .arrow-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .arrow-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 10px;
-        }
-        
-        .arrow-list li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            color: #16a085;
-        }
-        
+
         p {
             margin-bottom: 16px;
         }
-        
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 40px;
-        }
-        
-        .nav-button {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        
-        .nav-button:hover {
-            background-color: #2980b9;
-        }
+
         .image-container {
             width: 100%;
             text-align: center;
             padding: 20px 0;
-            background-color: #f0f0f0;
+            margin-bottom: 30px;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
         }
+
         .image-container img {
             max-width: 90%;
             max-height: 500px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Fixed Navigation Footer */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover {
+            background-color: var(--primary-dark);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .nav-button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-hover);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #backToTopBtn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            #backToTopBtn {
+                bottom: 90px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="content-container">
-        <h1>Common questions... ALL ABOUT HIV</h1>
+        <h1>Common questions about... STAYING SAFE</h1>
         <div class="image-container">
-            <img src="images/HIV 2.png" alt="YALEP Logo">
+            <img src="images/3C4A5542 2.jpg" alt="Staying Safe Illustration">
         </div>
         
-        <p>HIV is a virus that affects the immune system and if not treated can lead to AIDS. HIV transmission can be prevented, and the HIV virus is treatable so it's good to know how you can protect yourself and others.</p>
+        <p>Staying Safe is about looking after yourself and caring for others. As we grow up, the way we think, feel and view the world changes. We are developing our identity, forming new kinds of relationships and trying different things. Growing up is a time of excitement and discovery, but we can face risks and challenges that we need to be prepared to deal with on our own.</p>
         
-        <p>There are many myths around HIV that have led to stigma and discrimination against people living with HIV. People living with HIV can live long and healthy lives with the right treatment and support, and learning more about HIV can help you challenge the inaccurate information about HIV.</p>
-        
-        
+        <p>Staying safe is partly about knowing the difference between healthy and unhealthy relationships and knowing when people may be exploiting and abusing us or putting people at risk. It's also about knowing how to stand up for ourselves and others, and how to get the help and support we need.</p>
 
-        <h2>Question 1: What is the difference between HIV and AIDS?</h2>
-        
-        <p>HIV and AIDS are different. HIV is a virus that can lead to AIDS if not treated. HIV stands for Human Immunodeficiency Virus. It's a virus that attacks the body's immune system, making it harder to fight off infections.</p>
-        
+        <h2>Question 1: My father is drinking all the time and has started hitting my mother and threatening me. I just want her to leave him, what can I do?</h2>
+        <p>We all have the right to feel safe, especially in our own homes. You and your mother should never feel threatened or unsafe at home and you can get help and support from organisations that help families. Check local links for services.</p>
         <div class="note">
-            <p><strong>NOTE:</strong> Someone has AIDS when HIV infection is very advanced and, if it is not 
-                treated, it can lead Deficiency to death. Now that many more people are on HIV treatment, Syndrome fewer people die from AIDS.</p>
+            <p><strong>NOTE:</strong> Call <strong>393</strong> for help and support.</p>
+        </div>
+        
+        <h2>Question 2: A teacher at school is hassling me to go out with him. I don't want to, but am worried about offending him in case he gives me bad grades, what should I do?</h2>
+        <p>Teachers hold positions of responsibility, and your teacher is abusing his power by asking you to go out with him. Schools and colleges have strict rules that teachers should follow, to keep all students safe. Your teacher will know that what he's doing is wrong. He may have tried this before with other students and may have got away with it and he's also likely to try this again.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> It's important that you find someone to talk to about this – maybe a trusted family member or someone at school. Remember, this is not your fault, and this should not be happening. If the people you tell don't believe you, or won't help you, then find someone who will.</p>
+        </div>
+        
+        <h2>Question 3: I feel embarrassed and ashamed when my friends shout sexual comments at girls on the street; how can I get them to stop?</h2>
+        <p>Shouting sexual comments, or 'cat calling' someone, is sexual harassment and a type of sexual abuse. Sadly, many girls and women experience this type of abuse daily. It can make them feel scared, angry, and sad. People shouldn't be made to feel like this, and it will only stop if we stand up to this type of behaviour by being strong, and challenging the people we know are doing this.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> Don't be a bystander! Remember that this happens to your sister, mother and girlfriend and they don't like it.</p>
         </div>
 
-        <h2>Question 2: How do you get HIV?</h2>
-        
-        <p>You can only get HIV if you come into contact with the blood, semen, vaginal fluids or breastmilk of someone who has the 
-            virus. The most common way to get HIV is through unprotected sex (sex without using a condom).</p>
-        
-        <p>Ways to get HIV</p>
-        
+        <h2>Question 4: One of my friends boasts about how he gets girls drunk so that he can have sex with them; he says that they deserve it for getting drunk. How can we stop him?</h2>
+        <p>Sex without consent is rape! And rape is a serious crime. People cannot give consent to sex if they're drunk or high or when they are asleep. Read more about consent in the Q&A on Sex and other stuff.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> If your friend will not listen, and you think that this is not just boasting but he poses a risk, you must report him. You may want to find someone to talk to your friend as he may need support to deal with this behaviour. You may also want to think about finding other friends who share the same values as you.</p>
+        </div>
+
+        <h2>Question 5: I was raped and I am worried that no one will believe me and that I might be pregnant. What should I do?</h2>
+        <p>You're going through a traumatic experience and you're not to blame in any way for what happened to you. It's important that you tell someone that you trust and who can help you take action – you will need support at this time in your life. There are many things to think through, including finding out whether you are pregnant, and reporting the rape to authorities.</p>
         <ul class="checklist">
-            <li>Sex without using a condom</li>
-            <li>Contaminated blood</li>
-            <li>You can also get HIV by sharing injecting equipment with someone who has
-                 HIV – such as needles, syringes and other equipment used to prepare and inject drugs.</li>
-            <li>A pregnant woman can also pass HIV to her baby, through her blood, during pregnancy or childbirth, 
-                or through her breast milk when breastfeeding.</li>
+            <li>You need to access clinical services for post abuse care within 72 hours.</li>
+            <li>Post-Exposure Prophylaxis (PEP) may also be available where you live to prevent HIV infection.</li>
+            <li>PEP needs to be taken within a maximum of 3 days (72 hours) of the assault in order to work, and the sooner you take them, the better.</li>
         </ul>
-        
         <div class="note">
-            <p><strong>NOTE:</strong> If someone is taking antiretroviral treatment for HIV this will control the virus and reduce 
-                the risk of them passing the virus to sexual partners or from a mother to her child. You can't 'catch' HIV, like you
-                 can catch a cold.</p>
+            <p><strong>NOTE:</strong> Rape is a serious crime and the person who did this to you is accountable for his actions. Think about telling a trusted adult, such as a family member or someone you know well in the community. If you would find it easier to speak to a trained counsellor first, you can call or text. Call <strong>393</strong> for help and support.</p>
         </div>
         
-        <p>The only way to know if you have HIV is by getting an HIV test. You can't tell just by looking at someone whether 
-            or not they have HIV. Many people with HIV don't have any symptoms, especially if they are on treatment.</p>
-
-        <h2>Question 3: How can you prevent HIV transmission?</h2>
-        
-        <p>There are lots of things that you can do to prevent HIV transmission:</p>
-        
-        <ul class="arrow-list">
-            <li>Use condoms correctly and consistently every time you have sex. Both male and female condoms (also called 'femidoms')
-                 will protect 
-                you from getting HIV and STIs as well as preventing pregnancy.</li>
-            <li>If you use drugs, avoid sharing needles, syringes and other injecting equipment.</li>
-            <li>If you are a pregnant woman living with HIV, taking HIV treatment (called anti-retroviral 
-                treatment – ART) to reduce your risk of passing HIV to your baby during pregnancy, childbirth and breastfeeding.</li>
-            <li>If you or your partner is living with HIV, taking effective HIV treatment can reduce the amount of HIV in the
-                 blood (your 'viral load') to such low levels that it can't be detected in a blood test. If HIV is undetectable, 
-                 this means that it cannot be passed on.<strong>(undetectable is untransmittable)</strong></li>
-            <li>In some places, pre-exposure prophylaxis (PrEP) is available. PrEP is a course of antiretroviral medication that
-                 can be taken by people who do not have HIV, but who are at higher risk of getting it.</li>
-            <li>Post-exposure prophylaxis (PEP) is available at all local clinics.  PEP is taken after possible exposure to a risk sexual encounter and should be taken within 72 hours.
-                 to prevent the risk of HIV infection 
-                 <H2>Examples risk sexual encounters</H2> <br> <li> unprotected sex with a partner with an unknown HIV status. </li>
-                 <li> in cases of sexual abuse </li>  <li>group sex</li>  <li>persons who inject drugs</li>
-                       <p><strong>PEP is taken for 28 days </strong>  
-                 </li>
-        </ul>
-        
+        <h2>Question 6: I had sex with someone I thought really liked me. Now I've found out that they videoed us having sex and have shared it on social media. How can I make them delete the video?</h2>
+        <p>Sharing sexual images without someone's consent is wrong and, in many places, it is a crime. This is especially true if the images are of a person who is under 18, or considered a minor.</p>
         <div class="note">
-            <p><strong>NOTE:</strong> Remember you can't get HIV from mosquitos, from sharing items with people living with HIV, 
-                hugging or touching, kissing or bathing.</p>
-        </div>
-
-        <h2>Question 4: Is it possible to get HIV the first time you have sex?</h2>
-        
-        <p>Yes, it is!</p>
-        
-        <p>If you have sex without using a condom (unprotected sex) then you are at risk of HIV.</p>
-        
-        <p>If your partner has HIV, and has not been taking ART, or the treatment has not been working and they have a detectable viral load, 
-            they can pass HIV on to you, even if it is your first time having sex.</p>
-        
-        <p>That is why it's important to use condoms correctly and consistently – every time you have sex – to reduce the risk of HIV transmission 
-            as well as prevent pregnancy and STIs.</p>
-
-        <h2>Question 5: Is there a cure for HIV?</h2>
-        
-        <p>There is no cure for HIV yet, but anti-retroviral treatment (ART) that's available now means that HIV can be controlled, and the amount 
-            of virus in the blood reduced to very low levels (called an 'undetectable viral load').</p>
-        
-        <p>This means that people living with HIV can have healthy and fulfilling lives, just like anyone else, by taking daily medication, and 
-            they can live without the fear of passing HIV to others, including their babies.</p>
-        
-        <p>There are lots of dangerous myths about cures for HIV. Having sex with a virgin will NOT cure HIV, nor will herbal remedies and 
-            'alternative' medicines or spiritual cleansing.</p>
-        
-        <p>Starting ART early helps people living with HIV to stay healthy, that's why it's so important to get tested for HIV and know 
-            your HIV status.</p>
-
-        <h2>Question 6: What treatment is available for HIV and how does it work?</h2>
-        
-        <p>There's now very good treatment for HIV, and people living with HIV on treatment can live long and healthy lives, just like 
-            anybody else. HIV is treated using anti retroviral drugs (ARVs), also called antiretroviral therapy (ART).</p>
-        
-        <div class="note">
-            <p><strong>NOTE:</strong> ARVs work by preventing HIV from infecting new cells in the body's immune system and reducing the 
-                amount of HIV in someone's body (viral load) to very low levels. ARV's allow the immune system to strengthen and fight infections 
-                effectively.</p>
+            <p><strong>NOTE:</strong> Remember you have done nothing wrong – expressing your sexuality is natural and a private experience. The person is wrong for breaking your trust. It can be very distressing to know that others are seeing images of you and it is really important that you get support and talk to someone about how you're feeling.</p>
         </div>
         
-        <p>Starting ART as soon as possible after becoming infected with HIV helps people to stay healthy. This is why HIV testing is so
-             important; so that people can know their HIV status and start treatment early if they test positive.</p>
-
-        <h2>Question 7: What are PrEP and PEP and what's the difference?</h2>
-        
-        <p>PrEP stands for Pre-Exposure Prophylaxis and is a course of HIV drugs that can be taken before sex by those most at risk of
-             HIV - including adolescent girls, people who sell sex, and men who have sex with men – to prevent HIV being passed on.</p>
-        
-        <p>PEP stands for Post-Exposure Prophylaxis and is a 28 days course of ARV drugs taken after possible HIV exposure – eg, after 
-            unprotected sex or rape – to prevent HIV infection. You must start PEP within 72 hours of possible exposure to be effective.</p>
-        
-        <p>Young people find it hard to access PEP and PrEP If you want to know more, ask at 
-            a local clinic or look up HIV services in your area. Remember it is still important to use condoms to reduce the risk of STIs and pregnancy.</p>
-
-        <h2>Question 8: I've heard that people living with HIV who are taking treatment can't pass on the virus, is it true?</h2>
-        
-        <p>It is true as long as they take their HIV treatment properly and tests show that they have very low levels of HIV in their 
-            body (undetectable viral load). If someone is taking their medicine regularly, and it is working well, then it can control HIV
-             and it can't be detected in their body when they have something called a 'viral load' test. This test has to be done regularly 
-             by a health worker. If a person has an 'undetectable' viral load it means they can't pass on HIV.</p>
-        
+        <h2>Question 7: My friend's partner is becoming increasingly controlling. Last time I went round to her house he said that she wasn't at home, but I could see her through the window. What should I do to help her?</h2>
+        <p>It can be extremely hard to see our friends in relationships that we feel aren't right, with partners who are controlling and prevent them from seeing friends and family. It is important that you check your friend is OK.</p>
         <div class="note">
-            <p><strong>NOTE:</strong> Being 'undetectable' does not mean that HIV is cured. HIV is still present in the body, but the 
-                amount of virus in the blood (viral load) has been reduced to a very low level. This means that if the person with HIV 
-                stopped taking treatment, their viral load would go up again, and they would be able to pass on HIV. To know if your viral
-                 load is undetectable, you must have it monitored regularly.</p>
+            <p><strong>NOTE:</strong> Try to find a way to meet your friend outside her home. For example, you could go to her school or workplace at lunch time, or around the time that she arrives or leaves or to where she does grocery shopping or goes to church. Be honest and tell her you're worried about her and ask her if she's OK or needs help.</p>
         </div>
         
-        <p>An undetectable viral load means HIV is 'untransmittable'– it can't be passed on.</p>
-
-        <h2>Question 9: How can a woman living with HIV give birth to an HIV negative baby?</h2>
+        <h2>Question 8: My friend keeps making me go with her to the motor park at night to hang out, the drivers buy us food and joke around with us, my friend flirts with them but I just get a bad feeling?</h2>
+        <p>If you are uncomfortable in a situation, you should trust your instincts and remove yourself from it. Being aware of your environment and the people around you is so important in staying safe.</p>
         
-        <p>An HIV positive mother can pass on the virus to her baby during pregnancy, childbirth and through breastfeeding.
-             But, by taking anti-retroviral treatment (ART) while she is pregnant and breastfeeding, she can almost eliminate the risk 
-             of passing on the virus to the baby.</p>
-        
-        <p>It is important that women living with HIV access care early in their pregnancy to make sure they are on the ART and it
-             is working well. Babies born to women living with HIV are also given treatment for four to six weeks, and they will also be 
-             tested for HIV.</p>
-        
+        <h2>Question 9: My sister has a learning disability and has started to take an interest in boys. No one has talked to her about sex because my parents say there's no need and they still treat her like a young child but I'm worried about her.</h2>
+        <p>All young people need and deserve information on sex and sexuality and access to sexual and reproductive health (SRH) services, including family planning, to have safe and pleasurable sex and to prevent pregnancy and STIs, including HIV. This includes young people with disabilities, who are often denied this information because other people think that they are not interested in sex or shouldn't be sexually active.</p>
         <div class="note">
-            <p><strong>NOTE:</strong> Even if the results are negative, it is important the baby comes back for additional tests as
-                 instructed by the health provider.</p>
-        </div>
-
-        <h2>Question 10: I'm worried I might have HIV, what should I do?</h2>
-        
-        <p>The only way to know if you have HIV is to get tested. Getting an HIV test is quick, easy and almost always free, and you
-             can check online for services near you. Depending on the type of test used, you will be asked to give a small sample of
-              blood or saliva, and you will get the results within a few minutes or a few days.</p>
-        
-        <p>In some places you can do your own test at home but you should always talk to someone about doing a self-test and make sure 
-            you have a follow-up test done in a clinic to confirm the result.</p>
-        
-        <p>In other countries there are laws that ristrict HIV testing without parental guidence. If you cant get parental permission or
-             if you have any questions, talk to your health care worker to see what the options are available.</p>
-        
-        <p>It's normal to feel nervous before getting an HIV test. But knowing your HIV status can put your mind at rest and, if you test
-             positive, it means you can start treatment early to stay healthy. If you're having sex, it's good to get into the habit of 
-             testing regularly for HIV, even if you use condoms and don't think you have been at risk.</p>
-        
-        <div class="note">
-            <p><strong>NOTE:</strong> Remember that your results are confidential so no one will know unless you decide to tell them.</p>
-        </div>
-
-        <h2>Question 11: How long does it take to get the results from an HIV test?</h2>
-        
-        <p>Usually, you will get your HIV test results within a few days, but it may be quicker, depending on the type of test.
-             Normally an HIV test involves taking a small amount of blood from your finger or arm, or a saliva sample from your mouth.</p>
-        
-        <p>If you're taking a rapid test, you will be given your results within 20 minutes, but you will need to do a follow up
-             test to check the result. Other types of tests will be sent to a lab, and it may take a few days to get the result.</p>
-        
-        <div class="note">
-            <p><strong>NOTE:</strong> Although HIV tests are very reliable, you should be asked to have a second test to double check 
-                your result if your test comes back positive. If your second test is also positive, you will get an HIV diagnosis and will be supported to start treatment.</p>
-        </div>
-
-        <h2>Question 12: My partner is refusing to test for HIV, how can I persuade them?</h2>
-        
-        <p>It's good to get into the habit of testing for HIV regularly. But it's important to remember that deciding to have an HIV test is a personal choice, and nobody should feel pressurised by others to take one.</p>
-        
-        <div class="note">
-            <p><strong>NOTE:</strong> If you've had an HIV test yourself, you can explain the process to your partner and discuss their worries. You can explain that it's normal to feel nervous, but that testing for HIV can help to put their mind at rest.</p>
-        </div>
-        
-        <p>Testing for HIV regularly, and knowing your HIV status, means that you can look after your health and your partner's health. You can also explain that if someone does test positive for HIV, they can start HIV treatment early, which will help them live a long and healthy life.</p>
-        
-        <div class="note">
-            <p><strong>NOTE:</strong> You could offer to support them by going with them for the test.</p>
+            <p><strong>NOTE:</strong> Encourage her to be open with you and to ask any questions that she may have. You can also offer to go with her to the clinic with her and ask about information and services that meet her needs.</p>
         </div>
     </div>
-    <div class="nav-buttons">
-        <button class="nav-button" onclick="window.location.href='lesson 2.html'">← Back</button>
-        <button class="nav-button" onclick="markLessonCompleted(3, 'lesson 4.html')">Next →</button>
+
+    <!-- Fixed Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="nav-button" onclick="window.location.href='lessons.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="nav-button" onclick="markLessonCompleted(2, 'lesson 3.html')">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
-    <script>
-    function markLessonCompleted(lessonId, nextUrl) {
-      let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-      if (!completed.includes(lessonId)) {
-        completed.push(lessonId);
-        localStorage.setItem('completedLessons', JSON.stringify(completed));
-      }
-      window.location.href = nextUrl;
-    }
-    </script>
+
     <!-- Back to Top Button -->
-    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#3498db;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;"> 1</button>
+    <button id="backToTopBtn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-    // Back to Top Button logic
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 200) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
-      }
-    });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        // Lesson completion tracking
+        function markLessonCompleted(lessonId, nextUrl) {
+            let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            if (!completed.includes(lessonId)) {
+                completed.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completed));
+            }
+            window.location.href = nextUrl;
+        }
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme switcher
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            }
+
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
     </script>
-  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
-    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
-  </footer>
 </body>
 </html>
