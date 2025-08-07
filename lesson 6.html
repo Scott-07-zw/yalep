@@ -3,64 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module : --------------</title>
+    <title>Module : coming soon....</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+        :root {
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #ff7e5f;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.15);
         }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 80px; /* Space for fixed footer */
+        }
+
         .content-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
             padding: 30px;
             position: relative;
-            padding-bottom: 80px; /* Space for buttons */
         }
-        
+
         h1 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
             border-bottom: 2px solid #3498db;
             padding-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         h2 {
             color: #2980b9;
             margin-top: 30px;
             border-left: 4px solid #3498db;
             padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
         }
-        
+
         .note {
             background-color: #f8f9fa;
             border-left: 4px solid #3498db;
             padding: 15px;
             margin: 15px 0;
         }
-        
+
         .note strong {
             color: #e74c3c;
         }
-        
+
         .checklist {
             list-style-type: none;
             padding-left: 0;
         }
-        
+
         .checklist li {
             position: relative;
             padding-left: 30px;
             margin-bottom: 10px;
         }
-        
+
         .checklist li:before {
             content: "✓";
             color: #27ae60;
@@ -68,24 +90,49 @@
             left: 0;
             font-weight: bold;
         }
-        
+
         p {
             margin-bottom: 16px;
         }
 
-        /* Navigation buttons */
-        .nav-buttons {
+        .image-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            background-color: #f0f0f0;
+            border-radius: var(--border-radius);
+        }
+
+        .image-container img {
+            max-width: 90%;
+            max-height: 500px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Fixed Navigation Footer */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 30px;
             display: flex;
             justify-content: space-between;
-            margin-top: 40px;
-            position: bottom;
-            bottom: 20px;
-            left: 30px;
-            right: 30px;
         }
 
         .nav-button {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background-color: #3498db;
             color: white;
             border: none;
@@ -93,67 +140,148 @@
             cursor: pointer;
             font-size: 16px;
             transition: background-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-button:hover {
             background-color: #2980b9;
+            box-shadow: var(--shadow-hover);
         }
 
         .nav-button:disabled {
             background-color: #95a5a6;
             cursor: not-allowed;
         }
-        .image-container {
-            width: 100%;
-            text-align: center;
-            padding: 20px 0;
-            background-color: #f0f0f0;
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            z-index: 1000;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-hover);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .image-container img {
-            max-width: 90%;
-            max-height: 500px;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+
+        #backToTopBtn:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            #backToTopBtn {
+                bottom: 90px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
 <body>
-      
+    <div class="content-container">
+        <h1>Common questions about... 6</h1>
+        <div class="image-container">
+            <img src="images/LOGO.jpg" alt="Young Parents Illustration">
+        </div>
+        
+       <p>coming soon...............</p>
+        
+        <footer>
+            &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+        </footer>
+    </div>
 
-        <!-- Navigation Buttons -->
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='lesson 5.html'">← Back</button>
-            <button class="nav-button" onclick="markLessonCompleted(6, 'lesson 7.html')">Next →</button>
+    <!-- Fixed Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="nav-button" onclick="window.location.href='lessons.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="nav-button" onclick="markLessonCompleted(4, 'lesson 5.html')">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
         </div>
     </div>
-    <script>
-    function markLessonCompleted(lessonId, nextUrl) {
-      let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
-      if (!completed.includes(lessonId)) {
-        completed.push(lessonId);
-        localStorage.setItem('completedLessons', JSON.stringify(completed));
-      }
-      window.location.href = nextUrl;
-    }
-    </script>
+
     <!-- Back to Top Button -->
-    <button id="backToTopBtn" title="Go to top" style="display:none;position:fixed;bottom:40px;right:40px;z-index:1000;background:#3498db;color:#1daace;border:none;border-radius:50%;width:48px;height:48px;font-size:2rem;box-shadow:0 2px 8px rgba(0,0,0,0.15);cursor:pointer;transition:background 0.2s;"> 1</button>
+    <button id="backToTopBtn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
-    // Back to Top Button logic
-    const backToTopBtn = document.getElementById('backToTopBtn');
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 200) {
-        backToTopBtn.style.display = 'block';
-      } else {
-        backToTopBtn.style.display = 'none';
-      }
-    });
-    backToTopBtn.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+        // Lesson completion tracking
+        function markLessonCompleted(lessonId, nextUrl) {
+            let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            if (!completed.includes(lessonId)) {
+                completed.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completed));
+            }
+            window.location.href = nextUrl;
+        }
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
-  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
-    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
-  </footer>
 </body>
 </html>
