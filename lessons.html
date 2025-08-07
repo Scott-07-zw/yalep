@@ -594,7 +594,7 @@
         <div class="progress-bar">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
-        <p class="progress-text" id="progress-text">0 of 7 lessons completed</p>
+        <p class="progress-text" id="progress-text">0 of 5 lessons completed</p>
       </div>
 
       <!-- Lessons Grid -->
@@ -666,7 +666,7 @@
               <i class="fas fa-phone-alt contact-icon"></i>
               <div class="contact-details">
                 <h3>Call Us</h3>
-                <p>+263 77 746 9107 / 393</p>
+                <p>+263 77 746 9107 or on our toll free number -393</p>
               </div>
             </div>
             <div class="contact-item">
@@ -679,27 +679,29 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1794.9959973112273!2d31.07481682574619!3d-17.993338862405295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x193197416f39e9e5%3A0x16ae76fd511327d5!2sYouth%20Advocates%20Zimbabwe!5e0!3m2!1sen!2szw!4v1744378163283!5m2!1sen!2szw" class="contact-map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
+
+          
           <div class="contact-form">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="https://api.web3forms.com/submit" method="POST" class="contact-left">
               <div class="form-group">
+                 <input type="hidden" name="access_key" value="1dfa4bf6-41dc-4536-9686-8eafc59fd17f">
                 <label for="name-field" class="form-label">Your Name</label>
-                <input type="text" name="name" id="name-field" class="form-control" required>
+                <input type="text" name="name"class="form-control" required>
               </div>
               <div class="form-group">
                 <label for="email-field" class="form-label">Your Email</label>
-                <input type="email" name="email" id="email-field" class="form-control" required>
+              <input type="email" name="email"class="form-control" required>
               </div>
-              <div class="form-group">
+              <!--  div class="form-group">
                 <label for="subject-field" class="form-label">Subject</label>
                 <input type="text" name="subject" id="subject-field" class="form-control" required>
-              </div>
+              </!-->
+
               <div class="form-group">
                 <label for="message-field" class="form-label">Message</label>
-                <textarea name="message" id="message-field" class="form-control" rows="5" required></textarea>
+                <textarea name="message"class="form-control" required></textarea>
               </div>
-              <div class="form-message loading">Loading</div>
-              <div class="form-message error-message">Error sending message. Please try again.</div>
-              <div class="form-message sent-message">Your message has been sent. Thank you!</div>
+              
               <button type="submit" class="submit-btn">Send Message</button>
             </form>
           </div>
@@ -810,6 +812,7 @@
         });
       }
     });
-  </script>
+    
+    </script>
 </body>
 </html>
