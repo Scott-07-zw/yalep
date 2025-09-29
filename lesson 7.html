@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module 7:-----------</title>
+    <title>Module 7:Speaking Up on Mental Health issues.</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -118,38 +118,48 @@
     </style>
 </head>
 <body>
-      <div class="content-container">
-        <h1>Common questions... 7</h1>
+    <div class="content-container">
         <div class="image-container">
-            <img src="images/LOGO.jpg" alt="YALEP Logo">
+            <img src="images/lesson7.jpg" alt="YALEP Logo">
         </div>
+        <h1>TALKING ABOUT MENTAL HEALTH</h1>
+
+        <h2>Importance of Speaking Up</h2>
+        <ul class="checklist">
+          <li>Reduces stigma by normalizing conversations about mental health.</li>
+          <li>Encourages others to share their experiences and seek support.</li>
+          <li>Promotes understanding by increasing awareness of signs and symptoms.</li>
+          <li>Facilitates access to help such as therapy, support groups, and services.</li>
+          <li>Builds resilience by empowering individuals and showing recovery is possible.</li>
+          <li>Supports prevention through early intervention.</li>
+          <li>Strengthens relationships via honest, open communication.</li>
+          <li>Advocates for change by influencing supportive policies and practices.</li>
+          <li>Enhances well‑being by helping people process emotions and experiences.</li>
+        </ul>
+
+        <h2>Conversation Tips</h2>
+        <div class="note">
+          <p><strong>Be direct and compassionate:</strong> Use clear, caring language to express concern.</p>
+          <p><strong>Ask for preferences:</strong> Check if and how they want to talk; respect their choice.</p>
+          <p><strong>Acknowledge their expertise:</strong> Listen actively and validate their feelings.</p>
+          <p><strong>Don’t fear the wrong words:</strong> Concern matters more than perfect phrasing.</p>
+          <p><strong>Avoid avoidance:</strong> Not talking can increase stigma—open the dialogue.</p>
+          <p><strong>No gossip:</strong> Respect privacy; keep conversations supportive and confidential.</p>
+          <p><strong>Promote openness:</strong> Normalize mental health discussions to reduce stigma.</p>
+          <p><strong>Choose words wisely:</strong> Use respectful, non‑stigmatizing language.</p>
+          <p><strong>Create a safe space:</strong> Ensure conversations are non‑judgmental and respectful.</p>
+        </div>
+
+        <h2>Mental Health Services: Where to Get Help</h2>
+        <ul class="checklist">
+          <li>School‑based support (counsellors, teachers).</li>
+          <li>Clinics and community health services.</li>
+          <li>Toll‑free helplines (e.g., 393 helpline).</li>
+          <li>Youth‑friendly centres.</li>
+        </ul>
         
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
 
 
         <!-- Proceed to Post-Test Button -
@@ -161,7 +171,17 @@
         <h1>Congratulations! on finishing the course</h1>
         <p>You have reached the end of the lessons. Click Finish to complete your learning journey.</p>
         <div class="nav-buttons">
-            <button class="nav-button" onclick="markLessonCompleted(7, 'course_outline.html')">Finish</button>
+            <button class="nav-button" id="mh-test-btn" onclick="window.location.href='mental health 1.html'">Take a small mental health test</button>
+        </div>
+    </div>
+    <!-- Spacer to avoid overlap with fixed footer -->
+    <div style="height: 90px;"></div>
+    <!-- Fixed Green Finish Footer -->
+    <div style="position:top;bottom:0;left:0;right:0;background:#2ecc71;box-shadow:0 -2px 10px rgba(0,0,0,0.15);padding:12px 0;z-index:1000;">
+        <div style="max-width:1000px;margin:0 auto;text-align:center;padding:0 20px;">
+            <button class="nav-button" id="finish-btn" onclick="markLessonCompleted(7, 'course_outline.html')" disabled style="background:#1e8449;">
+                Finish
+            </button>
         </div>
     </div>
     <div id="congrats-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);z-index:9999;align-items:center;justify-content:center;">
@@ -171,18 +191,76 @@
             <button id="close-modal-btn" style="background:#3498db;color:#fff;border:none;padding:0.7rem 2rem;border-radius:6px;font-size:1rem;cursor:pointer;">Proceed</button>
         </div>
     </div>
+    <!-- Bottom reminder modal -->
+    <div id="bottom-reminder" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9998;align-items:center;justify-content:center;">
+        <div style="background:#ffffff;padding:1.5rem 2rem;border-radius:10px;box-shadow:0 6px 28px rgba(0,0,0,0.25);max-width:92vw;text-align:center;">
+            <h3 style="margin:0 0 0.75rem 0;color:#2c3e50;">Action needed</h3>
+            <p style="margin:0 0 1rem 0;">Please take the small mental health test before clicking Finish.</p>
+            <button id="bottom-reminder-close" style="background:#3498db;color:#fff;border:none;padding:0.6rem 1.4rem;border-radius:6px;font-size:1rem;cursor:pointer;">OK</button>
+        </div>
+    </div>
     <script>
+    // Enable Finish only after opening the mental health test
+    (function() {
+        const testBtn = document.getElementById('mh-test-btn');
+        const finishBtn = document.getElementById('finish-btn');
+        const key = 'lesson7TestVisited';
+
+        function updateFinishState() {
+            const visited = localStorage.getItem(key) === 'true';
+            finishBtn.disabled = !visited;
+        }
+
+        if (testBtn && finishBtn) {
+            testBtn.addEventListener('click', function() {
+                // Mark as visited; we assume user will take the test in the new tab
+                localStorage.setItem(key, 'true');
+                setTimeout(updateFinishState, 300);
+            });
+            updateFinishState();
+        }
+    })();
+
+    // Show reminder popup when scrolled to bottom and Finish is still disabled
+    (function() {
+        const reminder = document.getElementById('bottom-reminder');
+        const reminderClose = document.getElementById('bottom-reminder-close');
+        const finishBtn = document.getElementById('finish-btn');
+        const shownKey = 'lesson7BottomReminderShown';
+
+        function maybeShowReminder() {
+            if (!finishBtn) return;
+            const atBottom = (window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 2);
+            const alreadyShown = sessionStorage.getItem(shownKey) === 'true';
+            if (atBottom && finishBtn.disabled && !alreadyShown) {
+                reminder.style.display = 'flex';
+                sessionStorage.setItem(shownKey, 'true');
+            }
+        }
+
+        if (reminder && reminderClose) {
+            window.addEventListener('scroll', maybeShowReminder);
+            reminderClose.addEventListener('click', function() { reminder.style.display = 'none'; });
+        }
+    })();
+
     function markLessonCompleted(lessonId, nextUrl) {
         let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
         if (!completed.includes(lessonId)) {
             completed.push(lessonId);
-            localStorage.setItem('completedLessons', JSON.stringify(completed));
         }
-        if (completed.length === 7) {
+        // Ensure uniqueness and save back
+        const uniqueCompleted = Array.from(new Set(completed));
+        localStorage.setItem('completedLessons', JSON.stringify(uniqueCompleted));
+
+        const totalLessons = 7;
+        if (uniqueCompleted.length >= totalLessons) {
             localStorage.setItem('canProceedToPostTest', 'true');
             showCongratsModal(nextUrl);
         } else {
-            window.location.href = nextUrl;
+            const remaining = totalLessons - uniqueCompleted.length;
+            alert(`Please finish viewing all modules first. ${remaining} module(s) remaining.`);
+            return;
         }
     }
     function showCongratsModal(nextUrl) {
