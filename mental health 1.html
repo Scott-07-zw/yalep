@@ -400,9 +400,22 @@
                 <div class="question">
                     <div class="question-title">
                         <span class="question-number">3</span>
-                        Can you list at least three mental health conditions?
+                        Which of the following lists contains only mental health conditions?
                     </div>
-                    <textarea name="q3" placeholder="Type your answer here..."></textarea>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="Depression, Anxiety, Schizophrenia" required>
+                            Depression, Anxiety, Schizophrenia
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="Fever, Headache, Cough">
+                            Fever, Headache, Cough
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="HIV, Tuberculosis, Malaria">
+                            HIV, Tuberculosis, Malaria
+                        </label>
+                    </div>
                 </div>
                 
                 <!-- Question 4 -->
@@ -453,9 +466,22 @@
                 <div class="question">
                     <div class="question-title">
                         <span class="question-number">6</span>
-                        Name three strategies you can use to cope with stress or emotional problems:
+                        Which set lists healthy ways to cope with stress or emotional problems?
                     </div>
-                    <textarea name="q6" placeholder="Type your answer here..."></textarea>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q6" value="Exercise, Talk to someone, Mindfulness" required>
+                            Exercise regularly, talk to someone, practice mindfulness
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="Ignore feelings, Isolate, Use alcohol">
+                            Ignore your feelings, isolate yourself, use alcohol to cope
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q6" value="Bottle emotions, Avoid sleep, Skip meals">
+                            Bottle up emotions, avoid sleep, skip meals
+                        </label>
+                    </div>
                 </div>
                 
                 <button type="submit" class="submit-btn">Submit Answers</button>
@@ -480,10 +506,10 @@
                 <h3>Mental Health Resources</h3>
                 <p>If you or someone you know is struggling with mental health issues, help is available:</p>
                 <ul class="resource-list">
-                    <li><strong>Youth Helpline:</strong> Call 393 (toll free)</li>
-                    <li><strong>Youth Helpline Text Line:</strong> Text YAZ to 33500</li>
-                    <li><strong>WhatsApp Us</strong> 0777 469 107</li>
-                    <!--li><strong>Substance Abuse and Mental Health Services Administration (SAMHSA) Helpline:</strong> 1-800-662-4357</li-->
+                    <li><strong>Youth Helpline:</strong> 393</li>
+                    <!--<li><strong>Crisis Text Line:</strong> Text HOME to 741741</li>-->
+                    <li><strong>Youth Helpline:</strong> 393</li>
+                    <!--<li><strong>Substance Abuse and Mental Health Services Administration (SAMHSA) Helpline:</strong> 1-800-662-4357</li>-->
                 </ul>
                 <p style="margin-top: 15px;">Remember, it's okay to ask for help. You're not alone.</p>
             </div>
@@ -497,18 +523,10 @@
         const correctAnswers = {
             q1: "No", // Mental health conditions are not caused by curses/witchcraft
             q2: "Yes", // Talking about emotions is healthy
-            q3: { 
-                type: "text",
-                minConditions: 3, // Need to list at least 3 mental health conditions
-                examples: ["depression", "anxiety", "bipolar", "schizophrenia", "PTSD", "OCD", "ADHD", "eating disorders"]
-            },
+            q3: "Depression, Anxiety, Schizophrenia",
             q4: "Yes", // Should be aware of mental health services
             q5: "No", // Ideally should not have thoughts of self-harm
-            q6: {
-                type: "text",
-                minStrategies: 3, // Need to list at least 3 coping strategies
-                examples: ["exercise", "talking to someone", "meditation", "therapy", "journaling", "hobbies", "relaxation techniques"]
-            }
+            q6: "Exercise, Talk to someone, Mindfulness"
         };
 
         // Question feedback
@@ -571,10 +589,10 @@
                 // Validate that all required questions are answered
                 const q1 = formData.get('q1');
                 const q2 = formData.get('q2');
-                const q3 = formData.get('q3').trim();
+                const q3 = formData.get('q3');
                 const q4 = formData.get('q4');
                 const q5 = formData.get('q5');
-                const q6 = formData.get('q6').trim();
+                const q6 = formData.get('q6');
                 
                 if (!q1 || !q2 || !q4 || !q5) {
                     alert('Please answer all required questions');
@@ -619,24 +637,14 @@
                 correctAnswer: correctAnswers.q2
             };
             
-            // Question 3 - Check if they listed at least 3 mental health conditions
-            const q3Answer = formData.get('q3').toLowerCase();
-            let q3Correct = false;
-            let conditionsCount = 0;
-            
-            correctAnswers.q3.examples.forEach(condition => {
-                if (q3Answer.includes(condition.toLowerCase())) {
-                    conditionsCount++;
-                }
-            });
-            
-            q3Correct = conditionsCount >= correctAnswers.q3.minConditions;
+            // Question 3 - Multiple choice
+            const q3Answer = formData.get('q3');
+            const q3Correct = q3Answer === correctAnswers.q3;
             if (q3Correct) score++;
             questionResults.q3 = {
                 correct: q3Correct,
-                userAnswer: formData.get('q3'),
-                conditionsIdentified: conditionsCount,
-                required: correctAnswers.q3.minConditions
+                userAnswer: q3Answer,
+                correctAnswer: correctAnswers.q3
             };
             
             // Question 4
@@ -660,32 +668,14 @@
                 correctAnswer: correctAnswers.q5
             };
             
-            // Question 6 - Check if they listed at least 3 coping strategies
-            const q6Answer = formData.get('q6').toLowerCase();
-            let q6Correct = false;
-            let strategiesCount = 0;
-            
-            correctAnswers.q6.examples.forEach(strategy => {
-                if (q6Answer.includes(strategy.toLowerCase())) {
-                    strategiesCount++;
-                }
-            });
-            
-            // Also count if they mentioned other common strategies
-            const otherStrategies = ["breathing", "walk", "sport", "friend", "family", "doctor", "therapist", "write", "music", "art"];
-            otherStrategies.forEach(strategy => {
-                if (q6Answer.includes(strategy.toLowerCase())) {
-                    strategiesCount++;
-                }
-            });
-            
-            q6Correct = strategiesCount >= correctAnswers.q6.minStrategies;
+            // Question 6 - Multiple choice
+            const q6Answer = formData.get('q6');
+            const q6Correct = q6Answer === correctAnswers.q6;
             if (q6Correct) score++;
             questionResults.q6 = {
                 correct: q6Correct,
-                userAnswer: formData.get('q6'),
-                strategiesIdentified: strategiesCount,
-                required: correctAnswers.q6.minStrategies
+                userAnswer: q6Answer,
+                correctAnswer: correctAnswers.q6
             };
             
             return {
@@ -727,11 +717,7 @@
                     <div class="result-answer"><strong>Your answer:</strong> ${q.userAnswer || 'No answer provided'}</div>
                 `;
                 
-                if (i === 3) {
-                    questionHTML += `<div class="result-answer"><strong>Mental health conditions identified:</strong> ${q.conditionsIdentified} out of ${q.required} required</div>`;
-                } else if (i === 6) {
-                    questionHTML += `<div class="result-answer"><strong>Coping strategies identified:</strong> ${q.strategiesIdentified} out of ${q.required} required</div>`;
-                } else if (!q.correct) {
+                if (!q.correct) {
                     questionHTML += `<div class="result-answer"><strong>Recommended answer:</strong> ${q.correctAnswer}</div>`;
                 }
                 
@@ -746,5 +732,4 @@
         
     </script>
 </body>
-
 </html>
