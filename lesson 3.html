@@ -253,6 +253,78 @@
             gap: 10px;
         }
 
+        /* Video Hero Section for Decision Aid */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 320px;
+            max-height: 640px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            background: #000;
+        }
+
+        .video-hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12% 1rem 1rem;
+            text-align: center;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 1.1rem 1.8rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 10px 26px rgba(0, 184, 230, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0, 184, 230, 0.45);
+            background: #00a3cc;
+        }
+
+        @media (max-width: 768px) {
+            .video-hero {
+                height: 40vh;
+                min-height: 260px;
+            }
+            .video-overlay {
+                padding-top: 10%;
+            }
+            .hero-button {
+                font-size: 1.05rem;
+                padding: 0.9rem 1.4rem;
+            }
+        }
+
         .decision-aid-button:hover {
             background-color: #b91c1c;
             transform: translateY(-2px);
@@ -409,14 +481,15 @@
             <p><strong>NOTE:</strong> You could offer to support them by going with them for the test.</p>
         </div>
 
-        <!-- Decision Making Aid Button Container -->
-        <div class="decision-aid-container">
-            <h3 class="decision-aid-title">Need Help Making a Decision?</h3>
-            <button class="decision-aid-button" onclick="openDecisionAid()">
-                <i class="fas fa-brain"></i>
-                Decision Making Aid
-            </button>
-        </div>
+        <!-- Decision Making Aid Video Section -->
+        <section class="video-hero">
+            <video autoplay muted loop playsinline>
+                <source src="decision vid.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <a class="hero-button" href="decision aid.html">HIV Decision Aid</a>
+            </div>
+        </section>
         
         <footer>
             &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
