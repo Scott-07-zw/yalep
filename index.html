@@ -42,6 +42,8 @@
       font-family: 'Open Sans', sans-serif;
       color: var(--text-color);
       background-color: var(--background-color);
+      background-image: radial-gradient(1200px 600px at 10% -10%, rgba(52, 152, 219, 0.08), transparent 60%),
+        radial-gradient(900px 500px at 90% 0%, rgba(46, 204, 113, 0.07), transparent 60%);
       transition: background-color 0.3s ease, color 0.3s ease;
       line-height: 1.6;
     }
@@ -220,6 +222,10 @@
       margin-bottom: 2rem;
       transition: var(--transition);
     }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    }
     /* Slideshow Styles */
     .slideshow-container {
       position: relative;
@@ -296,6 +302,32 @@
     .card-content p {
       margin-bottom: 1rem;
     }
+
+    /* Reveal on Scroll Animations */
+    .reveal-base {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms ease, transform 600ms ease, box-shadow 300ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal-left { transform: translateX(-28px); }
+    .reveal-right { transform: translateX(28px); }
+    .in-view {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important;
+      }
+      .reveal-base {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
     footer {
       text-align:center;
       padding: 1rem 0;
@@ -303,6 +335,88 @@
       color: var(--nav-text);
       font-size: 1rem;
       box-shadow: var(--shadow);
+    }
+    /* Referral box */
+    .referral {
+      margin: 1rem 0 2rem;
+      padding: 16px 18px;
+      background: #E8F5E9;
+      border-radius: var(--border-radius);
+      border-left: 4px solid #2E7D32;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    .referral h3 {
+      margin-bottom: 6px;
+      color: #2E7D32;
+      font-weight: 700;
+    }
+    .referral p { color: var(--text-color); margin-bottom: 8px; }
+    .helpline { font-weight: 700; color: #2E7D32; }
+    /* Video Hero Section */
+    .video-hero {
+      position: relative;
+      width: 100%;
+      height: 60vh;
+      min-height: 360px;
+      max-height: 720px;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      margin: 1.5rem 0; /* natural spacing within main content */
+      background: #000;
+    }
+    .video-hero video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-start; /* move content upward */
+      justify-content: center;
+      padding: 12% 1rem 1rem; /* top padding lifts the button slightly above center */
+    }
+    .hero-button {
+      display: inline-block;
+      padding: 1.2rem 2rem;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--primary-color);
+      border: none;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 10px 26px rgba(52, 152, 219, 0.45);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      backdrop-filter: blur(2px);
+    }
+    .hero-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(52, 152, 219, 0.45);
+      background: #2d89c7;
+    }
+    @media (max-width: 768px) {
+      .video-hero {
+        height: 42vh;
+        min-height: 280px;
+      }
+      .video-overlay {
+        padding-top: 10%;
+      }
+      .hero-button {
+        font-size: 1.1rem;
+        padding: 1rem 1.5rem;
+      }
     }
   </style>
 </head>
@@ -329,9 +443,8 @@
     </ul>
   </nav>
 
-
   <main class="main-content">
-    <div class="card">
+    <div class="card reveal-base reveal-up">
       <div class="slideshow-container">
         <!-- Slideshow images - replace with your own images -->
         <img src="images/Landing-BG-3.png" alt="YALEP Image 1" class="slide active">
@@ -359,20 +472,37 @@
       </div>
 
       <div class="card-content">
-        <p>Welcome to the Youth Advocates Leadership Program (YALeP). Our mission is to provide adolescents and young people with realistic, developmental and scientifically accurate SRH information.</p>
+        <p>Welcome to the Youth Advocacy Leadership Program (YALeP). Our mission is to provide adolescents and young people with realistic, developmental and scientifically accurate SRH information.</p>
         <p>Through this platform, you'll gain access to important lessons, assessments, and resources that will help you become an effective advocate for positive change in your community.</p>
         <p>Start your learning journey today by exploring the lessons section, or learn more about our program in the info section.</p>
         <p>We are committed to providing a safe and supportive learning environment for all our users.</p>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card reveal-base reveal-right">
       <img src="images/yaz 2.jpg" alt="YALEP Team" class="card-image">
       <div class="card-content">
         <p>YALEP is brought to you by Youth Advocates Zimbabwe, a non-profit organization dedicated to empowering young people with capabilities and opportunities for healthy productive and fulfilling lives.</p>
         <p>Our programs are designed to be accessible, engaging, and impactful, helping you develop the skills and knowledge needed to make a difference.</p>
         <p>For certification information or questions, please visit the info section or contact us directly.</p>
       </div>
+    </div>
+
+    <!-- Video Hero with CTA -->
+    <section class="video-hero reveal-base">
+      <video autoplay muted loop playsinline>
+        <source src="decision vid.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay">
+        <a class="hero-button" href="decision aid.html">HIV Decision Aid</a>
+      </div>
+      
+    </section>
+
+    <div class="referral">
+      <h3>Need Support or in need for more infomation?</h3>
+      <p style="font-weight:700;color:#000000;">Contact the Youth Helpline (toll-free):</p>
+      <div class="helpline">393 — Toll-free Youth Helpline</div>
     </div>
   </main>
   
@@ -430,11 +560,21 @@
       
       // Slideshow functionality
       const slides = document.querySelectorAll('.slide');
-      const dots = document.querySelectorAll('.slideshow-dot');
+      const dotsContainer = document.querySelector('.slideshow-controls');
       const prevBtn = document.getElementById('prev-slide');
       const nextBtn = document.getElementById('next-slide');
       let currentSlide = 0;
       let slideInterval;
+
+      // Build dots dynamically to match number of slides
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'slideshow-dot' + (idx === 0 ? ' active' : '');
+        dot.setAttribute('data-index', String(idx));
+        dotsContainer.appendChild(dot);
+      });
+      const dots = dotsContainer.querySelectorAll('.slideshow-dot');
       
       // Function to show a specific slide
       function showSlide(index) {
@@ -498,6 +638,28 @@
       const slideshowContainer = document.querySelector('.slideshow-container');
       slideshowContainer.addEventListener('mouseenter', stopSlideshow);
       slideshowContainer.addEventListener('mouseleave', startSlideshow);
+
+      // Keyboard navigation for slideshow
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          nextBtn.click();
+        } else if (e.key === 'ArrowLeft') {
+          prevBtn.click();
+        }
+      });
+
+      // Reveal on scroll using IntersectionObserver
+      const revealElements = document.querySelectorAll('.reveal-base');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealElements.forEach(el => observer.observe(el));
     });
     
     function markLessonCompleted(lessonId, nextUrl) {
@@ -511,4 +673,3 @@
   </script>
 </body>
 </html>
-
