@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YALEP - User Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --text-color: #333;
+            --background-color: #f9f9f9;
+            --card-background: #ffffff;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #2980b9;
+            --secondary-color: #3498db;
+            --text-color: #f9f9f9;
+            --background-color: #2c3e50;
+            --card-background: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            background-color: var(--card-background);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .navbar-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            color: var(--primary-color);
+        }
+
+        .navbar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .profile-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            color: var(--text-color);
+        }
+
+        .logout-button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: var(--error-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            position: relative;
+            width: 60px;
+            height: 34px;
+        }
+
+        .theme-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            z-index: 2;
+        }
+
+        .slider i {
+            color: white;
+            font-size: 14px;
+            z-index: 1;
+        }
+
+        .slider .fa-sun {
+            margin-left: 5px;
+        }
+
+        .slider .fa-moon {
+            margin-right: 5px;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        /* Add improved mobile dropdown animation */
+        @media (max-width: 768px) {
+            .navbar-links {
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--card-background);
+                box-shadow: var(--shadow);
+                width: 100%;
+                z-index: 999;
+                pointer-events: none;
+                opacity: 0;
+                transform: translateY(-20px);
+                transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            }
+            .navbar-links.active {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+            .navbar-links li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+            .navbar-toggle {
+                display: block;
+            }
+        }
+        @media (min-width: 769px) {
+            .navbar-links {
+                position: static;
+                flex-direction: row;
+                max-height: none !important;
+                background: none;
+                box-shadow: none;
+                width: auto;
+            }
+            .navbar-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-brand">YALEP</div>
+        <div class="navbar-controls">
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="theme-toggle">
+                    <input type="checkbox" id="theme-toggle" />
+                    <div class="slider round">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                </label>
+            </div>
+            <button class="navbar-toggle" aria-label="Menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="course_outline.html" class="nav-link"><i class="fas fa-book"></i> Course</a></li>
+            <li><a href="profile.html" class="nav-link active"><i class="fas fa-user"></i> Profile</a></li>
+            <li><a href="info.html" class="nav-link"><i class="fas fa-info-circle"></i> Info</a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <h1>User Profile</h1>
+                <p>View your account information</p>
+            </div>
+            <div class="profile-info" id="profileInfo">
+                <!-- Profile information will be inserted here -->
+            </div>
+            <button class="logout-button" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggle.checked = savedTheme === 'dark';
+
+        themeToggle.addEventListener('change', function() {
+            const theme = this.checked ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.navbar-toggle');
+        const navLinks = document.querySelector('.navbar-links');
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
+        });
+
+        // Display user information
+        function displayUserInfo() {
+            const userData = JSON.parse(localStorage.getItem('userData'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const profileInfo = document.getElementById('profileInfo');
+
+            profileInfo.innerHTML = `
+                <div class="info-group">
+                    <div class="info-label">Name</div>
+                    <div class="info-value">${userData.name}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Surname</div>
+                    <div class="info-value">${userData.surname}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Age</div>
+                    <div class="info-value">${userData.age}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Sex</div>
+                    <div class="info-value">${userData.sex}</div>
+                </div>
+                <div class="info-group">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">${userData.location}</div>
+                </div>
+            `;
+        }
+
+        // Handle logout
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userData');
+            window.location.href = 'login.html';
+        }
+
+        // Initialize profile page
+        displayUserInfo();
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Navigation
+        const navbarToggle = document.querySelector('.navbar-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+        navbarToggle.addEventListener('click', function() {
+            navbarLinks.classList.toggle('active');
+            // Accessibility: set aria-expanded
+            const expanded = navbarLinks.classList.contains('active');
+            navbarToggle.setAttribute('aria-expanded', expanded);
+        });
+    });
+    </script>
+    <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
+      &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+    </footer>
+</body>
+</html> 

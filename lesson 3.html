@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 3: All About HIV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00b8e6;
+            --primary-dark: #00b8e6;
+            --secondary-color: #1a8cff;
+            --text-color: #333;
+            --text-light: #666;
+            --bg-color: #f9f9f9;
+            --card-bg: #fff;
+            --border-radius: 8px;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #00b8e6;
+            --primary-dark: #00b8e6;
+            --text-color: #f0f0f0;
+            --text-light: #ccc;
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --shadow: 0 2px 10px rgba(0,0,0,0.3);
+            --shadow-hover: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            padding-bottom: 80px; /* Space for fixed footer */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .content-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 15px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .note {
+            background-color: rgba(179, 6, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .note strong {
+            color: #f30101;
+        }
+
+        .checklist {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: #27ae60;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .arrow-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .arrow-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+
+        .arrow-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            color: #16a085;
+        }
+
+        p {
+            margin-bottom: 16px;
+        }
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            background-color: rgba(0,0,0,0.05);
+            border-radius: var(--border-radius);
+        }
+
+        .image-container img {
+            max-width: 90%;
+            max-height: 500px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Fixed Navigation Footer */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--card-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-button:hover {
+            background-color: var(--primary-dark);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .nav-button:disabled {
+            background-color: #70888a;
+            cursor: not-allowed;
+        }
+
+        /* Back to Top Button */
+        #backToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 40px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow-hover);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #backToTopBtn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        /* Decision Making Aid Button Container */
+        .decision-aid-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px solid #dc2626;
+        }
+
+        .decision-aid-button {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Video Hero Section for Decision Aid */
+        .video-hero {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            min-height: 320px;
+            max-height: 640px;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin: 30px 0;
+            background: #000;
+        }
+
+        .video-hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 12% 1rem 1rem;
+            text-align: center;
+        }
+
+        .hero-button {
+            display: inline-block;
+            padding: 1.1rem 1.8rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 999px;
+            text-decoration: none;
+            box-shadow: 0 10px 26px rgba(0, 184, 230, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 26px rgba(0, 184, 230, 0.45);
+            background: #00a3cc;
+        }
+
+        @media (max-width: 768px) {
+            .video-hero {
+                height: 40vh;
+                min-height: 260px;
+            }
+            .video-overlay {
+                padding-top: 10%;
+            }
+            .hero-button {
+                font-size: 1.05rem;
+                padding: 0.9rem 1.4rem;
+            }
+        }
+
+        .decision-aid-button:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .decision-aid-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(220, 38, 38, 0.3);
+        }
+
+        .decision-aid-title {
+            color: #dc2626;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .content-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+            }
+            
+            .nav-button {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            #backToTopBtn {
+                bottom: 90px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .decision-aid-container {
+                margin: 20px 0;
+                padding: 20px;
+            }
+
+            .decision-aid-button {
+                padding: 12px 24px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Common questions... ALL ABOUT HIV</h1>
+        <div class="image-container">
+            <img src="images/HIV 2.png" alt="HIV Awareness Illustration">
+        </div>
+        
+        <p>HIV is a virus that affects the immune system and if not treated can lead to AIDS. HIV transmission can be prevented, and the HIV virus is treatable so it's good to know how you can protect yourself and others.</p>
+        
+        <p>There are many myths around HIV that have led to stigma and discrimination against people living with HIV. People living with HIV can live long and healthy lives with the right treatment and support, and learning more about HIV can help you challenge the inaccurate information about HIV.</p>
+        
+        <h2>Question 1: What is the difference between HIV and AIDS?</h2>
+        <p>HIV and AIDS are different. HIV is a virus that can lead to AIDS if not treated. HIV stands for Human Immunodeficiency Virus. It's a virus that attacks the body's immune system, making it harder to fight off infections.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> Someone has AIDS when HIV infection is very advanced and, if it is not treated, it can lead to death. Now that many more people are on HIV treatment, fewer people die from AIDS.</p>
+        </div>
+
+        <h2>Question 2: How do you get HIV?</h2>
+        <p>You can only get HIV if you come into contact with the blood, semen, vaginal fluids or breastmilk of someone who has the virus. The most common way to get HIV is through unprotected sex (sex without using a condom).</p>
+        <p>Ways to get HIV</p>
+        <ul class="checklist">
+            <li>Sex without using a condom</li>
+            <li>Contaminated blood</li>
+            <li>Sharing injecting equipment with someone who has HIV – such as needles, syringes and other equipment used to prepare and inject drugs</li>
+            <li>A pregnant woman can pass HIV to her baby during pregnancy, childbirth, or through breast milk</li>
+        </ul>
+        <div class="note">
+            <p><strong>NOTE:</strong> If someone is taking antiretroviral treatment for HIV this will control the virus and reduce the risk of transmission. You can't 'catch' HIV like you catch a cold.</p>
+        </div>
+        
+        <h2>Question 3: How can you prevent HIV transmission?</h2>
+        <p>There are lots of things that you can do to prevent HIV transmission:</p>
+        <ul class="arrow-list">
+            <li>Use condoms correctly and consistently every time you have sex</li>
+            <li>If you use drugs, avoid sharing needles and other injecting equipment</li>
+            <li>Pregnant women living with HIV should take HIV treatment to reduce risk to the baby</li>
+            <li>Effective HIV treatment can make HIV undetectable and untransmittable</li>
+            <li>Pre-exposure prophylaxis (PrEP) can be taken by people at higher risk</li>
+            <li>Post-exposure prophylaxis (PEP) can prevent infection if taken within 72 hours of exposure</li>
+        </ul>
+        <div class="note">
+            <p><strong>NOTE:</strong> Remember you can't get HIV from mosquitos, sharing items, hugging, touching, kissing or bathing.</p>
+        </div>
+
+        <h2>Question 4: Is it possible to get HIV the first time you have sex?</h2>
+        <p>Yes, it is! If you have unprotected sex, you are at risk of HIV regardless of whether it's your first time.</p>
+        <p>That is why it's important to use condoms correctly and consistently – every time you have sex – to reduce the risk of HIV transmission as well as prevent pregnancy and STIs.</p>
+
+        <h2>Question 5: Is there a cure for HIV?</h2>
+        <p>There is no cure for HIV yet, but anti-retroviral treatment (ART) means that HIV can be controlled, and the amount of virus in the blood reduced to very low levels.</p>
+        <p>People living with HIV can have healthy and fulfilling lives by taking daily medication, and they can live without the fear of passing HIV to others.</p>
+        <div class="note">
+            <p><strong>WARNING:</strong> Dangerous myths about cures for HIV (like having sex with a virgin, herbal remedies, or spiritual cleansing) are false and harmful.</p>
+        </div>
+
+        <h2>Question 6: What treatment is available for HIV and how does it work?</h2>
+        <p>HIV is treated using anti retroviral drugs (ARVs), also called antiretroviral therapy (ART).</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> ARVs work by preventing HIV from infecting new cells and reducing the amount of HIV in someone's body (viral load).</p>
+        </div>
+        
+        <h2>Question 7: What are PrEP and PEP and what's the difference?</h2>
+        <p><strong>PrEP</strong> stands for Pre-Exposure Prophylaxis and is taken before possible exposure to HIV.</p>
+        <p><strong>PEP</strong> stands for Post-Exposure Prophylaxis and is a 28-day course of ARV drugs taken after possible HIV exposure.</p>
+        <p>You must start PEP within 72 hours of possible exposure to be effective.</p>
+
+        <h2>Question 8: I've heard that people living with HIV who are taking treatment can't pass on the virus, is it true?</h2>
+        <p>It is true as long as they take their HIV treatment properly and have an undetectable viral load. This means they can't pass on HIV.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> Being 'undetectable' does not mean that HIV is cured. If treatment stops, the viral load would increase again.</p>
+        </div>
+        
+        <h2>Question 9: How can a woman living with HIV give birth to an HIV negative baby?</h2>
+        <p>By taking anti-retroviral treatment (ART) during pregnancy and breastfeeding, she can almost eliminate the risk of passing on the virus to the baby.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> Babies born to women living with HIV are also given treatment and tested for HIV.</p>
+        </div>
+
+        <h2>Question 10: I'm worried I might have HIV, what should I do?</h2>
+        <p>The only way to know is to get tested. Getting an HIV test is quick, easy and almost always free.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> Remember that your results are confidential.</p>
+        </div>
+
+        <h2>Question 11: How long does it take to get the results from an HIV test?</h2>
+        <p>Usually within a few days, but rapid tests provide results in about 20 minutes (with a follow-up test to confirm).</p>
+
+        <h2>Question 12: My partner is refusing to test for HIV, how can I persuade them?</h2>
+        <p>Testing is a personal choice, but you can discuss their worries and explain the benefits of knowing their status.</p>
+        <div class="note">
+            <p><strong>NOTE:</strong> You could offer to support them by going with them for the test.</p>
+        </div>
+
+        <!-- Decision Making Aid Video Section -->
+        <section class="video-hero">
+            <video autoplay muted loop playsinline>
+                <source src="decision vid.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay">
+                <a class="hero-button" href="decision aid.html">HIV Decision Aid</a>
+            </div>
+        </section>
+        
+        <footer>
+            &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Fixed Navigation Footer -->
+    <div class="nav-footer">
+        <div class="nav-container">
+            <button class="nav-button" onclick="window.location.href='lessons.html'">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button class="nav-button" onclick="markLessonCompleted(3, 'lesson 4.html')">
+                Next <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Lesson completion tracking
+        function markLessonCompleted(lessonId, nextUrl) {
+            let completed = JSON.parse(localStorage.getItem('completedLessons') || '[]');
+            if (!completed.includes(lessonId)) {
+                completed.push(lessonId);
+                localStorage.setItem('completedLessons', JSON.stringify(completed));
+            }
+            window.location.href = nextUrl;
+        }
+
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTopBtn');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                backToTopBtn.style.display = 'block';
+            } else {
+                backToTopBtn.style.display = 'none';
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Theme switcher
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            }
+
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // Decision Making Aid function
+        function openDecisionAid() {
+            window.location.href = 'decision aid.html';
+        }
+    </script>
+</body>
+</html>

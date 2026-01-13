@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YALEP - Course Outline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="css/lessons.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --text-color: #333333;
+      --background-color: #ffffff;
+      --card-bg: #f9f9f9;
+      --nav-bg: #ffffff;
+      --nav-text: #333333;
+      --nav-active: #3498db;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --text-color: #ffffff;
+      --background-color: #121212;
+      --card-bg: #1e1e1e;
+      --nav-bg: #121212;
+      --nav-text: #ffffff;
+      --nav-active: #2ecc71;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--nav-bg);
+      color: var(--nav-text);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-link {
+      color: var(--nav-text);
+    }
+
+    .nav-link.active {
+      color: var(--nav-active);
+    }
+
+    .instructions-container,
+    .progress-container,
+    .quiz-container {
+      background-color: var(--card-bg);
+      box-shadow: var(--shadow);
+    }
+
+    .instructions-title,
+    .progress-title,
+    .section-title {
+      color: var(--text-color);
+    }
+
+    .quiz-disclaimer {
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    /* Quiz Styles */
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      margin-top: 2rem;
+      border-top: 2px solid var(--card-bg);
+    }
+
+    .quiz-button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 1.5rem 3rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+
+    .quiz-button:hover {
+      background-color: #27ae60;
+      transform: scale(1.03);
+    }
+
+    .quiz-button.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .quiz-button.disabled:hover {
+      transform: none;
+    }
+
+    .quiz-button i {
+      font-size: 2rem;
+    }
+
+    .instructions-container {
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .instructions-title {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .instructions-list {
+      list-style-type: decimal;
+      padding-left: 1.5rem;
+    }
+
+    .instructions-list li {
+      margin-bottom: 0.5rem;
+    }
+
+    .course-button {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 400px;
+      margin: 2rem auto;
+      text-decoration: none;
+    }
+
+    .course-button:hover {
+      transform: scale(1.05);
+      background-color: #2980b9;
+    }
+
+    .course-button.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .course-button.disabled:hover {
+      transform: none;
+    }
+
+    .course-button i {
+      font-size: 2rem;
+    }
+
+    /* Progress Container Styles */
+    .progress-container {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+    }
+
+    .progress-title {
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background-color: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-fill.pre-test {
+      background-color: #e74c3c;
+    }
+
+    .progress-fill.lessons {
+      background-color: #3498db;
+    }
+
+    .progress-fill.post-test {
+      background-color: #2ecc71;
+    }
+
+    .progress-legend {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-color);
+    }
+
+    .legend-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .legend-color.pre-test {
+      background-color: #e74c3c;
+    }
+
+    .legend-color.lessons {
+      background-color: #3498db;
+    }
+
+    .legend-color.post-test {
+      background-color: #2ecc71;
+    }
+
+    .progress-text {
+      text-align: center;
+      color: var(--text-color);
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .proceed-button {
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      padding: 1.5rem 3rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 300px;
+      margin: 2rem auto;
+      justify-content: center;
+    }
+
+    .proceed-button:hover {
+      background-color: #27ae60;
+      transform: scale(1.03);
+    }
+
+    .proceed-button.disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .proceed-button.disabled:hover {
+      transform: none;
+    }
+
+    .proceed-button i {
+      font-size: 1.5rem;
+    }
+
+    /* Notification Styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: slideIn 0.5s ease-out;
+    }
+
+    .notification-content {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      max-width: 400px;
+    }
+
+    .notification-content i {
+      font-size: 24px;
+    }
+
+    .notification-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Theme Switch Styles */
+    .navbar-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .theme-switch-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .theme-switch {
+      display: inline-block;
+      position: relative;
+      width: 60px;
+      height: 34px;
+    }
+
+    .theme-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      z-index: 2;
+    }
+
+    .slider i {
+      color: white;
+      font-size: 14px;
+      z-index: 1;
+    }
+
+    .slider .fa-sun {
+      margin-left: 5px;
+    }
+
+    .slider .fa-moon {
+      margin-right: 5px;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+
+    /* Add transition for theme changes */
+    body, .navbar, .nav-link, .instructions-container, .progress-container, 
+    .quiz-container, .instructions-title, .progress-title, .section-title,
+    .quiz-disclaimer {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Add improved mobile dropdown animation */
+    @media (max-width: 768px) {
+      .navbar-links {
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--nav-bg);
+        box-shadow: var(--shadow);
+        width: 100%;
+        z-index: 999;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      }
+      .navbar-links.active {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      .navbar-links li {
+        margin: 1rem 0;
+        text-align: center;
+      }
+      .navbar-toggle {
+        display: block;
+      }
+    }
+    @media (min-width: 769px) {
+      .navbar-links {
+        position: static;
+        flex-direction: row;
+        max-height: none !important;
+        background: none;
+        box-shadow: none;
+        width: auto;
+      }
+      .navbar-toggle {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <!-- Navigation -->
+    <nav class="navbar">
+      <div class="navbar-left" style="display: flex; align-items: center; gap: 1rem;">
+        <!-- <div class="navbar-brand">YALEP</div> -->
+        <img src="images/LOGO.jpg" alt="YALEP Logo" class="navbar-brand" style="height:40px;width:auto;object-fit:contain;">
+      </div>
+      <div class="navbar-controls">
+        <div class="theme-switch-wrapper">
+          <label class="theme-switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle" />
+            <div class="slider round">
+              <i class="fas fa-sun"></i>
+              <i class="fas fa-moon"></i>
+            </div>
+          </label>
+        </div>
+        <button class="navbar-toggle" aria-label="Menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="course_outline.html" class="nav-link active"><i class="fas fa-book"></i> Course</a></li>
+        <li><a href="info.html" class="nav-link"><i class="fas fa-info-circle"></i> Info</a></li>
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Instructions -->
+      <div class="instructions-container">
+        <h3 class="instructions-title">Learning Journey Instructions</h3>
+        <ol class="instructions-list">
+          <li>Start with the Pre-Test to assess your current knowledge</li>
+          <li>After completing the Pre-Test, you'll gain access to the course</li>
+          <li>Complete all lessons in sequence</li>
+          <li>Finally, take the Post-Test to evaluate your learning progress</li>
+          <li>Your progress will be tracked automatically</li>
+        </ol>
+      </div>
+
+      <!-- Progress Section -->
+      <div class="progress-container">
+        <h3 class="progress-title">Overall Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill pre-test" id="pre-test-progress"></div>
+          <div class="progress-fill lessons" id="lessons-progress"></div>
+          <div class="progress-fill post-test" id="post-test-progress"></div>
+        </div>
+        <div class="progress-legend">
+          <div class="legend-item">
+            <div class="legend-color pre-test"></div>
+            <span>Pre-Test</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color lessons"></div>
+            <span>Lessons</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color post-test"></div>
+            <span>Post-Test</span>
+          </div>
+        </div>
+        <p id="progress-text" class="progress-text">Start your journey by taking the Pre-Test</p>
+      </div>
+
+      <!-- Pre-Test Section -->
+      <h2 class="section-title">Pre-Test</h2>
+      <div class="quiz-container">
+        <button class="quiz-button" id="pre-test-button" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdwKh70xSORcRL36oADMkR6NiVG1QvahKPf3PZNFTPdE7TdAg/viewform?usp=header', '_blank')">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Take Pre-Test</span>
+        </button>
+        <p class="quiz-disclaimer">Complete this test before accessing the course</p>
+      </div>
+
+      <!-- Course Button -->
+      <a href="lessons.html" class="course-button disabled" id="course-button">
+        <i class="fas fa-graduation-cap"></i>
+        <span>Start Course</span>
+      </a>
+
+      <!-- Notification Container -->
+      <div id="notification" class="notification" style="display: none;">
+        <div class="notification-content">
+          <i class="fas fa-trophy"></i>
+          <p>Congratulations on finishing our course! Please write the post test to earn your certificate.</p>
+          <button class="notification-close" onclick="closeNotification()">×</button>
+        </div>
+      </div>
+
+      <!-- Post-Test Section -->
+      <h2 class="section-title">Post-Test</h2>
+      <div class="quiz-container">
+        <button class="quiz-button disabled" id="post-test-button" data-url="https://docs.google.com/forms/d/e/1FAIpQLScvCFOYPnc-i4zyZNEiaM6ni7W5rKfnwHvmfucaeHSySqr29w/viewform?usp=header">
+          <i class="fas fa-clipboard-check"></i>
+          <span>Take Post-Test</span>
+        </button>
+        <p class="quiz-disclaimer">Complete all lessons before taking the post-test</p>
+      </div>
+    </main>
+  </div>
+
+  <footer style="text-align:center; padding: 1rem 0; background: var(--nav-bg); color: var(--nav-text); font-size: 1rem; box-shadow: var(--shadow);">
+    &copy; 2025 YOUTH ADVOCATES ZIMBABWE. All rights reserved.
+  </footer>
+
+  <script src="course.js"></script>
+  <script>
+    // Theme Switcher
+    const themeToggle = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeToggle.checked = savedTheme === 'dark';
+    }
+    themeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Navigation
+      const navbarToggle = document.querySelector('.navbar-toggle');
+      const navbarLinks = document.querySelector('.navbar-links');
+      navbarToggle.addEventListener('click', function() {
+        navbarLinks.classList.toggle('active');
+        // Accessibility: set aria-expanded
+        const expanded = navbarLinks.classList.contains('active');
+        navbarToggle.setAttribute('aria-expanded', expanded);
+      });
+    });
+  </script>
+</body>
+</html> 
